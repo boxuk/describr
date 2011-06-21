@@ -16,6 +16,10 @@ use BoxUK\Describr\Plugins\UnmetDependencyException;
  */
 class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
 {
+    /**
+     * @var ImageMainColourPicker
+     */
+    protected $picker;
 
     /**
      * Make sure that this plugin has everything that it needs - i.e. GD
@@ -89,7 +93,10 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      * from that pixel
      */
     private function calculateMainColourInImage() {
-        return ImageMainColourPicker::calculateMainColourInImage($this->fullPathToFileOnDisk);
+        if(!$this->picker) {
+            $this->picker = new ImageMainColourPicker();
+        }
+        return $this->picker->calculateMainColourInImage($this->fullPathToFileOnDisk);
     }
 
     /**

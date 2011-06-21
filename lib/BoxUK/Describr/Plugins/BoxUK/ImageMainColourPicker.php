@@ -28,7 +28,7 @@ class ImageMainColourPicker
      * @param string $fullPathToFileOnDisk e.g. /tmp/foo.png
      * @return string e.g. "SeaGreen"
      */
-    public static function calculateMainColourInImage($fullPathToFileOnDisk) {
+    public function calculateMainColourInImage($fullPathToFileOnDisk) {
 
         $colourName = null;
 
@@ -46,7 +46,7 @@ class ImageMainColourPicker
             // Extract the colour information from the 1pixel version of this file
             $colour = imagecolorat($onePixelVersionOfImage, 0, 0);
             $colours = imagecolorsforindex($onePixelVersionOfImage, $colour);
-            $colourName = self::rgbColourToString($colours['red'], $colours['green'], $colours['blue']);
+            $colourName = $this->rgbColourToString($colours['red'], $colours['green'], $colours['blue']);
             if ($colourName) {
                 // Switch "DarkOrange2" to "DarkOrange" etc
                 $colourName = str_replace(
@@ -74,11 +74,15 @@ class ImageMainColourPicker
      * 
      * @throws FileNotFoundException If cannot open RGB lookup file
      */
-    private function rgbColourToString($r, $g, $b) {
+    protected function rgbColourToString($r, $g, $b) {
 
         $rgbLookupFile = dirname(__FILE__) . '/../../../../../resources/rgb.txt';
         if (!file_exists($rgbLookupFile)) {
             throw new FileNotFoundException("Cannot open RGB to colour name lookup file $rgbLookupFile");
+        }
+        // Open the file, or return silently
+        if (!$fp = fopen($rgbLookupFile, 'r')) {
+            return false;
         }
 
         $match = '';
@@ -86,54 +90,55 @@ class ImageMainColourPicker
         // How far each pixel is from our desired $rgb colour
         $distanceFromColor = sqrt(3.0) * 255;
 
-        // Open the file, or return silently
-        if (!$fp = fopen($rgbLookupFile, 'r')) {
-            return false;
-        }
-
         // Iterate through the rgb loopup file, checking for precise or close
         // matches
         while (!feof($fp)) {
-            $line = fgets($fp);
-            if ($line[0] !== '!') {
-                list($r1, $g1, $b1, $colorName, $colorExtra1, $colorExtra2, $colorExtra3) = sscanf($line, "%d %d %d %s %s %s %s");
-                // Because sscanf uses spaces as delimiters, rebuild the search terms
-                if ($colorExtra1) {
-                    $colorName = $colorName . ucfirst($colorExtra1);
-                }
-                if ($colorExtra2) {
-                    $colorName = $colorName . ucfirst($colorExtra2);
-                }
-                if ($colorExtra3) {
-                    $colorName = $colorName . ucfirst($colorExtra3);
-                }
-
-                if (stripos($colorName, 'gray') > -1) {
-                    continue;
-                }
-
-                // Check for exact match
-                if ($r1 === $r && $g1 === $g && $b1 === $b) {
-                    $match = $colorName;
-                    break;
-                }
-
-                // Check for close match
-                $newdist = sqrt(pow($r-$r1, 2) + pow($g-$g1, 2) + pow($b-$b1, 2));
-                // It seems to prefer to tag to greys! So, lets make those less taggable
-                if (stripos($colorName, 'grey') > -1) {
-                    $newdist += 100;
-                }
-                if ($newdist < $distanceFromColor) {
-                    // Closer than any other match so far so update our response
-                    // value
-                    $match = $colorName;
-                    $distanceFromColor = $newdist;
-                }
-            }
+            $this->processLine(fgets($fp), $distanceFromColor, $match, $r, $g, $b);
+            
         }
         fclose($fp);
 
         return ucfirst($match);
     }
+    
+    protected function processLine($line, &$distanceFromColor, &$match, $r, $g, $b) {
+        if ($line[0] === '!') {
+            return;
+        }
+        list($r1, $g1, $b1, $colorName, $colorExtra1, $colorExtra2, $colorExtra3) = sscanf($line, "%d %d %d %s %s %s %s");
+        // Because sscanf uses spaces as delimiters, rebuild the search terms
+        if ($colorExtra1) {
+            $colorName = $colorName . ucfirst($colorExtra1);
+        }
+        if ($colorExtra2) {
+            $colorName = $colorName . ucfirst($colorExtra2);
+        }
+        if ($colorExtra3) {
+            $colorName = $colorName . ucfirst($colorExtra3);
+        }
+
+        if (stripos($colorName, 'gray') > -1) {
+            return;
+        }
+
+        // Check for exact match
+        if ($r1 === $r && $g1 === $g && $b1 === $b) {
+            $match = $colorName;
+            return;
+        }
+
+        // Check for close match
+        $newdist = sqrt(pow($r-$r1, 2) + pow($g-$g1, 2) + pow($b-$b1, 2));
+        // It seems to prefer to tag to greys! So, lets make those less taggable
+        if (stripos($colorName, 'grey') > -1) {
+            $newdist += 100;
+        }
+        if ($newdist < $distanceFromColor) {
+            // Closer than any other match so far so update our response
+            // value
+            $match = $colorName;
+            $distanceFromColor = $newdist;
+        }
+    }
+        
 }

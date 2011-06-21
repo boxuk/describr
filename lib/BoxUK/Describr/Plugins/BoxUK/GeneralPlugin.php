@@ -81,45 +81,78 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         }
 
         $sizeInKb = filesize ($this->fullPathToFileOnDisk) / 1024;
-
-        $fileSizeDescription = 'Extra Large';
-        switch($this->getFileType()) {
-            case 'image':
-                if ($sizeInKb < 16) {
-                    $fileSizeDescription = 'Extra Small';
-                }else if ($sizeInKb < 32) {
-                    $fileSizeDescription = 'Small';
-                } elseif ($sizeInKb < 64) {
-                    $fileSizeDescription = 'Medium';
-                } else if ($sizeInKb < 128) {
-                    $fileSizeDescription = 'Large';
-                }
-                break;
-            case 'audio':
-            case 'document':
-                if ($sizeInKb < 32) {
-                    $fileSizeDescription = 'Extra Small';
-                }else if ($sizeInKb < 256) {
-                    $fileSizeDescription = 'Small';
-                } elseif ($sizeInKb < 1024) {
-                    $fileSizeDescription = 'Medium';
-                } else if ($sizeInKb < 2048) {
-                    $fileSizeDescription = 'Large';
-                }
-                break;
-            case 'video':
-                if ($sizeInKb < 128) {
-                    $fileSizeDescription = 'Extra Small';
-                }else if ($sizeInKb < 512) {
-                    $fileSizeDescription = 'Small';
-                } elseif ($sizeInKb < 2048) {
-                    $fileSizeDescription = 'Medium';
-                } else if ($sizeInKb < 8096) {
-                    $fileSizeDescription = 'Large';
-                }
-                break;
-        }
+        
+        $function = 'getSizeOf' . ucfirst($this->getFileType());
+        
+        $fileSizeDescription = $this->$function($sizeInKb);
+        
 
         $this->attributes['fileSize'] = $fileSizeDescription;
+    }
+    
+    /**
+     * How big is $sizeInKb, expressed in natural language?
+     * @param type $sizeInKb How big a given file is, in kilobytes
+     * @return string e.g. 'Extra Large' or 'Medium'
+     */
+    protected function getSizeOfImage($sizeInKb) {
+        $fileSizeDescription = 'Extra Large';
+        if ($sizeInKb < 16) {
+            $fileSizeDescription = 'Extra Small';
+        }else if ($sizeInKb < 32) {
+            $fileSizeDescription = 'Small';
+        } elseif ($sizeInKb < 64) {
+            $fileSizeDescription = 'Medium';
+        } else if ($sizeInKb < 128) {
+            $fileSizeDescription = 'Large';
+        }
+        return $fileSizeDescription;
+    }
+    
+    /**
+     * How big is $sizeInKb, expressed in natural language?
+     * @param type $sizeInKb How big a given file is, in kilobytes
+     * @return string e.g. 'Extra Large' or 'Medium'
+     */
+    protected function getSizeOfAudio($sizeInKb) {
+        return $this->getSizeOfDocument($sizeInKb);
+    }
+    
+    /**
+     * How big is $sizeInKb, expressed in natural language?
+     * @param type $sizeInKb How big a given file is, in kilobytes
+     * @return string e.g. 'Extra Large' or 'Medium'
+     */
+    protected function getSizeOfDocument($sizeInKb) {
+        $fileSizeDescription = 'Extra Large';
+        if ($sizeInKb < 32) {
+            $fileSizeDescription = 'Extra Small';
+        }else if ($sizeInKb < 256) {
+            $fileSizeDescription = 'Small';
+        } elseif ($sizeInKb < 1024) {
+            $fileSizeDescription = 'Medium';
+        } else if ($sizeInKb < 2048) {
+            $fileSizeDescription = 'Large';
+        }
+        return $fileSizeDescription;
+    }
+    
+    /**
+     * How big is $sizeInKb, expressed in natural language?
+     * @param type $sizeInKb How big a given file is, in kilobytes
+     * @return string e.g. 'Extra Large' or 'Medium'
+     */
+    protected function getSizeOfMovie($sizeInKb) {
+        $fileSizeDescription = 'Extra Large';
+        if ($sizeInKb < 128) {
+            $fileSizeDescription = 'Extra Small';
+        }else if ($sizeInKb < 512) {
+            $fileSizeDescription = 'Small';
+        } elseif ($sizeInKb < 2048) {
+            $fileSizeDescription = 'Medium';
+        } else if ($sizeInKb < 8096) {
+            $fileSizeDescription = 'Large';
+        }
+        return $fileSizeDescription;
     }
 }

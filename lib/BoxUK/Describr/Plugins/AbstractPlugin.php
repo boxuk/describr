@@ -40,14 +40,15 @@ abstract class AbstractPlugin implements Plugin
      * @param mixed $defaultValue The default value if $valueName is not defined
      * in the ini file
      *
-     * @return mixed The value from the ini file, or the $defaultValue
+     * @return mixed The value from the configuration of this plugin, or the $defaultValue
      *
      * @throws ConfigurationNotLoadedException If configuration was not loaded
      */
+    //@codingStandardsIgnoreStart
     public function getConfigurationValue($valueName, $defaultValue) {
-        // TODO support customisation
         return $defaultValue;
     }
+    //@codingStandardsIgnoreEnd
 
     /**
      * Set the file that this plugin is working on. This automatically extracts

@@ -1,2 +1,2 @@
 <?php
-$describr_pathToPHPReaderLibrary = '/opt/php-reader-1.8.1/library';
+$describr_pathToPHPReaderLibrary = '/opt/php-reader-1.8.1/src';
