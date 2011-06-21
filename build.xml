@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<project name="Describr" basedir="." default="test">
+<project name="Describr" basedir="." default="default">
+    
+    <target name="default" depends="test-php">
+    </target>
+    
+    <target name="ci" depends="test">
+    </target>
+    
+    <target name="test" depends="test-php,test-cs">
+    </target>
+    
+    <target name="test-cs" description="Run PHPCodeSniffer. You must have the BoxUK coding standard installed: pear channel-discover pear.boxuk.com; pear install boxuk/codingstandards">
+        <mkdir dir="reports" />
+        <exec command="phpcs --standard=BoxUK --report=checkstyle lib > reports/checkstyle.xml" escape="false" />
+    </target>
 
-    <target name="test" description="Run tests">
+    <target name="test-php" description="Run tests">
         <mkdir dir="log" />
         <mkdir dir="tests/tmp" />
         <exec command="phpunit --testdox --log-junit log/phpunit.xml tests/php/" passthru="true" checkreturn="true" />
