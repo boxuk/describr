@@ -1,7 +1,12 @@
 # Describr
 
 Describr is an object-oriented library for describing files. It uses a series
-of plugins to determine as much information as it can about a given file type
+of plugins to determine as much information as it can about a given file type.
+
+Describr can be run from the command line via a supplied script, or it can
+be integrated into any PHP project to gather informatino about a variety of
+file types. You can write your own plugins, and a few of the file types Describr
+supports "out of the box" with the bundled plugins include:
 
  * GIF
  * JPEG
@@ -226,6 +231,21 @@ array(3) {
   }
 }
 ```
+
+## Accessing through your project
+
+Using Describr on the command line is all well and good, but the meat of it is
+using it in a project to tell you about files. You can do something like:
+
+```php
+// ...
+$responseFromDescribr = $this->describr->describeFile($pathToFile);
+```
+
+This will give you a BoxUK\Describr\MediaFileAttributes object, which you can
+interrogate to find out which plugins said what about the file! The toArray method
+gives you what we've used so far in the command line scripts, or you can access
+it plugin-by-plugin for more fine-grained and powerful control.
 
 ## Get involved!
 
