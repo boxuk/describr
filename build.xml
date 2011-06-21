@@ -13,7 +13,7 @@
     
     <target name="test-cs" description="Run PHPCodeSniffer. You must have the BoxUK coding standard installed: pear channel-discover pear.boxuk.com; pear install boxuk/codingstandards">
         <mkdir dir="reports" />
-        <exec command="phpcs --standard=BoxUK --report=checkstyle lib > reports/checkstyle.xml" escape="false" />
+        <exec command="phpcs --standard=BoxUK --report=checkstyle lib > reports/checkstyle-result.xml" escape="false" />
     </target>
 
     <target name="test-php" description="Run tests">

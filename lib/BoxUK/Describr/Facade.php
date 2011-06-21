@@ -72,7 +72,10 @@ class Facade
         return $packageAndClass;
     }
 
-
+    /**
+     * @return array The class names of all available plugins in a flat array
+     * of strings like '\BoxUK\Describr\Plugins\BoxUK\GeneralPlugin'
+     */
     public function listAvailablePlugins() {
         return $this->availablePlugins;
     }
