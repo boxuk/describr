@@ -4,16 +4,14 @@ namespace BoxUK\Describr\Helper;
 /**
  * Functions to help the system work out what kind of files we're dealing with
  *
- * @package   BoxUK\Describr\Helper
  * @author    Box UK <info@boxuk.com>
- * @copyright Copyright (c) 2010, Box UK
+ * @copyright Copyright (c) 2011, Box UK
  * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
  * @link      http://github.com/boxuk/describr
- * @since     1.0
+ * @since     1.0.0
  */
 class FileHelper
 {
-
     /**
      * @var array Mapping of file types to known extensions for quick lookup
      *
@@ -40,7 +38,9 @@ class FileHelper
     /**
      * @param string $fullPathToFileOnDisk e.g. /tmp/foo.png
      * @return string|null A rough categorisation of the file, such as
-     * "document", "image" or "audio"
+     * "document", "image" or "audio".
+     * 
+     * @see \BoxUK\Describr\Plugins\AbstractPlugin::getFileTypeFromExtension
      */
     public static function getFileTypeFromExtension ($fullPathToFileOnDisk) {
         $fileExtension = self::getFileExtension($fullPathToFileOnDisk);
@@ -53,9 +53,6 @@ class FileHelper
 
         return null;
     }
-
- 
-
 
     /**
      * @param string $fullPathToFileOnDisk e.g. /tmp/foo.png

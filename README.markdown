@@ -28,8 +28,8 @@ Plugins may have their own requirements. Some of the requirements for bundled
 plugins are:
 
  * GD extension - needed by the image file analysis plugin
- * Zend framework - needed by PHP-Reader
- * PHP-reader 1.8.1 or better - needed by the audio/video file analysis plugins
+ * [PHP-reader 1.8.1 or better](http://code.google.com/p/php-reader/ "PHP-Reader version 1.8.1 or better")PHP-Reader  - needed by the audio/video file analysis plugins
+ * [http://code.google.com/p/php-reader/](Zend framework) - needed by PHP-Reader
 
 ## Getting started
 
@@ -142,7 +142,7 @@ namespace BoxUK\Describr\Plugins\custom;
  *
  * @package   BoxUK\Describr\Plugins\BoxUK
  * @author    Box UK <info@boxuk.com>
- * @copyright Copyright (c) 2010, Box UK
+ * @copyright Copyright (c) 2011, Box UK
  * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
  * @link      http://github.com/boxuk/describr
  * @since     1.0
@@ -238,6 +238,7 @@ Using Describr on the command line is all well and good, but the meat of it is
 using it in a project to tell you about files. You can do something like:
 
 ```php
+<?php
 // ...
 $responseFromDescribr = $this->describr->describeFile($pathToFile);
 ```

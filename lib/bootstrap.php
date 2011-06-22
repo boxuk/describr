@@ -31,7 +31,7 @@ set_include_path(get_include_path () . $delimiter . $describr_pathToPHPReaderLib
  * @copyright Copyright (c) 2011, Box UK
  * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
  * @link      https://github.com/boxuk/describr
- * @since     1.0
+ * @since     1.0.0
  */
 function autoload( $rootDir, $pathToPHPReaderLibrary ) {
     spl_autoload_register(function( $className ) use ( $rootDir, $pathToPHPReaderLibrary ) {

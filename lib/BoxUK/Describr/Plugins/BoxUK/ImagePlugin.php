@@ -5,14 +5,15 @@ namespace BoxUK\Describr\Plugins\BoxUK;
 use BoxUK\Describr\Plugins\UnmetDependencyException;
 
 /**
- * Plugin for automatically describing an Image file
+ * Plugin for automatically describing an Image file.
+ * 
+ * Requires GD to be installed.
  *
- * @package   BoxUK\Describr\Plugins\BoxUK
  * @author    Box UK <info@boxuk.com>
- * @copyright Copyright (c) 2010, Box UK
+ * @copyright Copyright (c) 2011, Box UK
  * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
  * @link      http://github.com/boxuk/describr
- * @since     1.0
+ * @since     1.0.0
  */
 class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
 {

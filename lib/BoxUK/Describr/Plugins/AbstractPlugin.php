@@ -8,12 +8,11 @@ use BoxUK\Describr\FileNotFoundException;
  * Base class for a plugin. Defines the interfaces that have to be filled in by
  * each plugin.
  *
- * @package   BoxUK\Describr\Plugins
  * @author    Box UK <info@boxuk.com>
- * @copyright Copyright (c) 2010, Box UK
+ * @copyright Copyright (c) 2011, Box UK
  * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
  * @link      http://github.com/boxuk/describr
- * @since     1.0
+ * @since     1.0.0
  */
 abstract class AbstractPlugin implements Plugin
 {

@@ -9,12 +9,13 @@ use BoxUK\Describr\Plugins\UnmetDependencyException;
  * Apple QuickTime, Apple iTunes AAC, and MPEG-4 Video
  * (m4a|mp4|..)
  *
- * @package   BoxUK\Describr\Plugins\BoxUK\AudioVideo
  * @author    Box UK <info@boxuk.com>
- * @copyright Copyright (c) 2010, Box UK
+ * @copyright Copyright (c) 2011, Box UK
  * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
  * @link      http://github.com/boxuk/describr
- * @since     1.0
+ * @since     1.0.0
+ * @link      http://code.google.com/p/php-reader/ Library used by this plugin
+ * @link      http://framework.zend.com/ Library used by this plugin
  */
 class Iso14496VideoPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAudioVideoPlugin {
 

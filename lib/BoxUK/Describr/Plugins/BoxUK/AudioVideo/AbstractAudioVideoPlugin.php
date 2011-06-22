@@ -6,12 +6,13 @@ namespace BoxUK\Describr\Plugins\BoxUK\AudioVideo;
  *
  * Requires http://code.google.com/p/php-reader/wiki/ID3v1
  *
- * @package   BoxUK\Describr\Plugins\BoxUK\AudioVideo
  * @author    Box UK <info@boxuk.com>
- * @copyright Copyright (c) 2010, Box UK
+ * @copyright Copyright (c) 2011, Box UK
  * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
  * @link      http://github.com/boxuk/describr
- * @since     1.0
+ * @since     1.0.0
+ * @link      http://code.google.com/p/php-reader/ Library used by this plugin
+ * @link      http://framework.zend.com/ Library used by this plugin
  */
 abstract class AbstractAudioVideoPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin {
 
