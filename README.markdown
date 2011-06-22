@@ -29,7 +29,7 @@ plugins are:
 
  * GD extension - needed by the image file analysis plugin
  * [PHP-reader 1.8.1 or better](http://code.google.com/p/php-reader/ "PHP-Reader version 1.8.1 or better") - needed by the audio/video file analysis plugins
- * [http://code.google.com/p/php-reader/](Zend framework) - needed by PHP-Reader
+ * [Zend Framework](http://framework.zend.com/) - needed by PHP-Reader
 
 ## Getting started
 
