@@ -4,3 +4,6 @@ lib/bootstrap.custom.php
 log/*
 docs
 reports
+lib/package.xml
+catalog.xml
+*.tgz
