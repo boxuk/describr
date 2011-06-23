@@ -94,9 +94,10 @@ class MediaFileAttributes
     }
 
     /**
-     * Converts e.g. '\BoxUK\Describr\Plugins\BoxUK\GeneralPlugin' to its short
-     * version, e.g. 'BoxUK\General'
+     * Converts long plugin name to its short version, e.g. 'BoxUK\General'
      *
+     * @param String $pluginName e.g. e.g. '\BoxUK\Describr\Plugins\BoxUK\GeneralPlugin'
+     * 
      * @return  e.g. 'BoxUK\General'
      */
     private function getShortPluginNameIfFullNameIsUsed($pluginName) {

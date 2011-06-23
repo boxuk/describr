@@ -33,7 +33,13 @@ set_include_path(get_include_path () . $delimiter . $describr_pathToPHPReaderLib
  * @link      https://github.com/boxuk/describr
  * @since     1.0.0
  */
+
+/**
+ * @param string $rootDir e.g. /opt/BoxUK/describr/lib
+ * @param string $pathToPHPReaderLibrary e.g. /opt/vendor/php-reader/1.8.1/src
+ */
 function autoload( $rootDir, $pathToPHPReaderLibrary ) {
+    
     spl_autoload_register(function( $className ) use ( $rootDir, $pathToPHPReaderLibrary ) {
         $file = sprintf(
             '%s/%s.php',
