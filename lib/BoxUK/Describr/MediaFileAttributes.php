@@ -6,7 +6,7 @@ namespace BoxUK\Describr;
  * Class that describes a media file. An instance of this is returned to the
  * user when they submit a media file to the Facade.
  *
- * @author    Box UK <info@boxuk.com>
+ * @author    Box UK <opensource@boxuk.com>
  * @copyright Copyright (c) 2011, Box UK
  * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
  * @link      http://github.com/boxuk/describr

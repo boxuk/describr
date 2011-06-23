@@ -10,7 +10,7 @@ namespace BoxUK\Describr\Plugins;
  * not do anything significant in the constructor. This means the code remains
  * free of static methods, is testable, and is performant.
  *
- * @author    Box UK <info@boxuk.com>
+ * @author    Box UK <opensource@boxuk.com>
  * @copyright Copyright (c) 2011, Box UK
  * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
  * @link      http://github.com/boxuk/describr

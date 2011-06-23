@@ -6,7 +6,7 @@ namespace BoxUK\Describr\Plugins\BoxUK;
  * General plugin that can determine the mime type, file extension, size, name
  * of a file - stuff that is common to files of any type
  *
- * @author    Box UK <info@boxuk.com>
+ * @author    Box UK <opensource@boxuk.com>
  * @copyright Copyright (c) 2011, Box UK
  * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
  * @link      http://github.com/boxuk/describr
