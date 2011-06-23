@@ -33,9 +33,10 @@ plugins are:
 
 ## Getting started
 
-Download or checkout PHP-reader
-
-Download or clone describr
+First, install Zend Framework version 1.latest and download or checkout
+[PHP-reader 1.8.1 or better](http://code.google.com/p/php-reader/ "PHP-Reader version 1.8.1 or better").
+Then, grab the source from [Github](https://github.com/boxuk/describr) by cloning
+the repo (or downloading the zip).
 
 In the root of describr, copy lib/bootstrap.custom.php-sample to
 lib/bootstrap.custom.php. You'll need to edit lib/bootstrap.custom.php and provide
