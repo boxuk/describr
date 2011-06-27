@@ -27,7 +27,6 @@ while (!feof($file_handle) ) {
 }
 fclose($file_handle);
 
-
 $aFilesToIgnore[] = 'tests/';
 $aFilesToIgnore[] = 'nbproject/';
 $aFilesToIgnore[] = 'logs/';
