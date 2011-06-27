@@ -1,6 +1,7 @@
 <?php
 namespace BoxUK\Describr;
 
+
 // You must set a path to the PHP Reader library in bootstrap.custom.php
 // You must also have Zend framework on your path
 $describr_pathToPHPReaderLibrary = '';
