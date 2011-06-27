@@ -9,6 +9,7 @@ if (file_exists(dirname(__FILE__) . '/bootstrap.custom.php')) {
     include_once('bootstrap.custom.php');
 }
 
+
 // make sure we can load PHPReader
 if(strlen ($describr_pathToPHPReaderLibrary) < 1) {
     throw new \Exception('You must define $describr_pathToPHPReaderLibrary in {describr}/lib/bootstrap.custom.php-sample so Describr knows where to find PHP-Reader');
