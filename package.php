@@ -14,6 +14,7 @@
 define( 'VERSION', '1.0.1' );
 
 require_once( 'PEAR/PackageFileManager2.php' );
+require_once( 'PEAR/PackageFileManager/File.php' );
 
 $packagexml = new PEAR_PackageFileManager2;
 $packagexml->setOptions(array(
@@ -24,7 +25,7 @@ $packagexml->setOptions(array(
 $packagexml->setPackage( 'describr' );
 $packagexml->setSummary( 'So, tell me about your file...' );
 $packagexml->setDescription( 'Given any file, describr will describe it. Can be used as a command line script or within a PHP project' );
-$packagexml->setChannel( 'pear.boxuk.com' );
+$packagexml->setChannel( 'pear.boxuk.net' );
 $packagexml->setAPIVersion( VERSION );
 $packagexml->setReleaseVersion( VERSION );
 $packagexml->setReleaseStability( 'stable' );
