@@ -11,7 +11,8 @@
  * @link      http://github.com/boxuk/describr
  * @since     1.0.0
  */
-define( 'VERSION', '1.0.3' );
+define( 'VERSION', '1.0.4' );
+define( 'BOXUK_PEAR_CHANNEL', 'pear.gavd-desktop' ); // pear.boxuk.net
 
 require_once( 'PEAR/PackageFileManager2.php' );
 
@@ -21,6 +22,8 @@ $aFilesToIgnore[] = 'bootstrap.custom.php';
 $aFilesToIgnore[] = 'bootstrap.custom.php-sample';
 
 $packagexml = new PEAR_PackageFileManager2();
+$packagexml->addPackageDepWithChannel('package', 'Autoload', BOXUK_PEAR_CHANNEL, '1.0.0');
+        
 $packagexml->setOptions(array(
     'dir_roles' => array(
         'bin' => 'script'
@@ -33,8 +36,7 @@ $packagexml->setOptions(array(
 $packagexml->setPackage( 'describr' );
 $packagexml->setSummary( 'So, tell me about your file...' );
 $packagexml->setDescription( 'Given any file, describr will describe it. Can be used as a command line script or within a PHP project' );
-#$packagexml->setChannel( 'pear.boxuk.net' );
-$packagexml->setChannel( 'pear.gavd-desktop' );
+$packagexml->setChannel( BOXUK_PEAR_CHANNEL );
 $packagexml->setAPIVersion( VERSION );
 $packagexml->setReleaseVersion( VERSION );
 $packagexml->setReleaseStability( 'stable' );
@@ -59,9 +61,6 @@ $packagexml->setPhpDep( '5.3.0' );
 $packagexml->setPearinstallerDep( '1.3.0' );
 $packagexml->addMaintainer( 'lead', 'Open', 'Source', 'opensource@boxuk.com' );
 $packagexml->setLicense( 'MIT License', 'http://opensource.org/licenses/mit-license.php' );
-
-
-// require_once( 'PEAR/Dependency2.php' ); TODO add dependencies...
 
 $packagexml->generateContents();
 $packagexml->writePackageFile();
