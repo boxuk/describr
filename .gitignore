@@ -5,5 +5,7 @@ log/*
 docs
 reports
 lib/package.xml
+package.xml
+*.swp
 catalog.xml
 *.tgz

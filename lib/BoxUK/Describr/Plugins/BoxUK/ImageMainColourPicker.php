@@ -11,7 +11,7 @@ use BoxUK\Describr\FileNotFoundException;
  *
  * This class uses a Unix RGB file to convert from RGB values to colour names
  *
- * Uses {project root}/resources/rgb.txt, which is a Unix style RBG file
+ * Uses {describrroot}/lib/resources/rgb.txt, which is a Unix style RBG file
  *
  * @author    Box UK <opensource@boxuk.com>
  * @copyright Copyright (c) 2011, Box UK
@@ -75,7 +75,13 @@ class ImageMainColourPicker
      */
     protected function rgbColourToString($r, $g, $b) {
 
-        $rgbLookupFile = dirname(__FILE__) . '/../../../../../resources/rgb.txt';
+        $rgbLookupFile = dirname(__FILE__) . '/../../../../resources/rgb.txt';
+        
+        if (!file_exists($rgbLookupFile)) {
+            // see if this is a PEAR install
+            $rgbLookupFile = '@DATA_DIR@/describr/resources/rgb.txt';
+        }
+        
         if (!file_exists($rgbLookupFile)) {
             throw new FileNotFoundException("Cannot open RGB to colour name lookup file $rgbLookupFile");
         }
