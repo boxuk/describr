@@ -4,7 +4,8 @@
  * to allow quick inspection of files
  * 
  * This script is automatically installed when you install Describr through PEAR.
- * If you have not installed through PEAR, ignore this script and use describr.php
+ * If you have not installed through PEAR, ignore this script and use
+ * {describrroot}/bin/describr.php instead
  * 
  * @author    Box UK <opensource@boxuk.com>
  * @copyright Copyright (c) 2011, Box UK
@@ -13,12 +14,14 @@
  * @since     1.0.2
  */
 
-// Reference the describr bootstrap
-include '@PHP_DIR@/lib/bootstrap.php';
+// Autoload describr. Requires Box UK autoloader
+require_once('BoxUK/Autoload.php');
+\BoxUK\Autoload::registerPear();
 
 // Create an instance of the describr facade - this is the class that wraps all
 // the functionality of describr and should be the only class you need most
 // of the time
+
 $describr = new \BoxUK\Describr\Facade();
 
 // analyse a file
