@@ -82,11 +82,33 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $sizeInKb = filesize ($this->fullPathToFileOnDisk) / 1024;
         
         $function = 'getSizeOf' . ucfirst($this->getFileType());
-        
+        if(!function_exists($function)) {
+            $function = 'getSizeOf';
+        }
         $fileSizeDescription = $this->$function($sizeInKb);
         
 
         $this->attributes['fileSize'] = $fileSizeDescription;
+    }
+    
+    /**
+     * How big is $sizeInKb, expressed in natural language?
+     * Catch-all for when the file type isn't met by $this->getSizeOf{fileType}
+     * @param type $sizeInKb How big a given file is, in kilobytes
+     * @return string e.g. 'Extra Large' or 'Medium'
+     */
+    protected function getSizeOf($sizeInKb) {
+        $fileSizeDescription = 'Extra Large';
+        if ($sizeInKb < 32) {
+            $fileSizeDescription = 'Extra Small';
+        }else if ($sizeInKb < 128) {
+            $fileSizeDescription = 'Small';
+        } elseif ($sizeInKb < 512) {
+            $fileSizeDescription = 'Medium';
+        } else if ($sizeInKb < 2048) {
+            $fileSizeDescription = 'Large';
+        }
+        return $fileSizeDescription;
     }
     
     /**

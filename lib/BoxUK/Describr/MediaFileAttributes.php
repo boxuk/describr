@@ -31,12 +31,6 @@ class MediaFileAttributes
     private $lookupFromFullToShortPluginName = array();
 
     /**
-     * @var array Errors that get trapped at the top level rather than at the
-     * plugin level
-     */
-    private $errors = array();
-
-    /**
      * Set the results for a given plugin. Overwrites anything that already
      * exists for that plugin.
      *
@@ -46,26 +40,6 @@ class MediaFileAttributes
     public function setPluginResults($pluginName, array $results) {
         $shortName = $this->shortenPluginName($pluginName);
         $this->pluginResults[$shortName] = $results;
-    }
-
-    /**
-     * @param string $pluginName The name of the plugin, e.g. \BoxUK\Describr\Plugins\BoxUK\GeneralPlugin
-     * @param Exception $e       Something that went wrong
-     */
-    public function addError($pluginName, Exception $e) {
-        $shortName = $this->shortenPluginName($pluginName);
-        if(!array_key_exists($shortName, $this->errors)) {
-            $this->errors[$shortName] = array();
-        }
-        $this->errors[$shortName][] = $e->getMessage();
-    }
-
-    /**
-     * @return array Any errors that occured above the plugin level
-     * @see addError
-     */
-    public function getErrors() {
-        return $this->errors;
     }
 
     /**

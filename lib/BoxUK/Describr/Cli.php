@@ -80,7 +80,7 @@ class Cli {
         try {
             $response = $this->facade->describeFileAsArray($file);
 
-            var_dump($response);
+            print_r($response);
         } catch(FileNotFoundException $e) {
             echo "\nUnable to read file $file";
         }

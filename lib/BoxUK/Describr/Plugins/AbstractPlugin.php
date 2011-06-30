@@ -144,6 +144,22 @@ abstract class AbstractPlugin implements Plugin
             'errors' => array()
         );
     }
+    
+    /**
+     * Add an error that occurred on this plugin
+     * @param string $errorMsg 
+     */
+    protected function addError($errorMsg) {
+        $this->attributes['errors'][] = $errorMsg;
+    }
+    
+    /**
+     * @return array Array of error messages
+     */
+    public function getErrors() {
+        return $this->attributes['errors'];
+    }
+    
 
     /**
      * Set up the internal attributes collection from everything this plugin
@@ -152,14 +168,27 @@ abstract class AbstractPlugin implements Plugin
     protected abstract function setAttributes();
 
     /**
-     * Reset the attributes, set them, then return them
+     * Reset the attributes, set them, then return them. If dependencies are not
+     * met, we may have some exception information
      *
      * @return array The attributes this plugin is able to collect on the loaded
      * file
      */
     public function getAttributes() {
         $this->resetAttributes();
-        $this->setAttributes();
+        
+        try {
+            $this->checkDependencies();
+            $this->setAttributes();
+        } catch(UnmetDependencyException $e) {
+            $this->addError("This plugin matched the file " . $this->fullPathToFileOnDisk 
+                    . ", but the dependencies could not be matched. Details:\n"
+                    . $e->__toString());
+        }
+         catch(Exception $e) {
+            $this->addError($e->__toString());
+        }
+        
         return $this->attributes;
     }
 }

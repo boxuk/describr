@@ -27,4 +27,14 @@ class GeneralPluginTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('image', $attributes['type']);
         $this->assertStringStartsWith('image/jpeg', $attributes['mimeType']);
     }
+    
+    public function testCanCalculateSizeOfFlash() {
+        $plugin = new GeneralPlugin();
+        $filePath = dirname(__FILE__) . '/../../../../../../resources/test.swf';
+        $plugin->setFile($filePath);
+
+        $attributes = $plugin->getAttributes();
+        $this->assertEquals('application/x-shockwave-flash', $attributes['mimeType']);
+        $this->assertEquals('Medium', $attributes['fileSize']);
+    }
 }

@@ -116,12 +116,7 @@ class Facade
             /* @var $plugin plugins\Plugin */
             $plugin = new $pluginName();
             if ( $plugin->supportsFile($mimeType, $extension)) {
-                try {
-                    $plugin->checkDependencies();
-                } catch(UnmetDependencyException $e) {
-                    $mediaFileAttributes->addError($pluginName, $e);
-                    continue;
-                }
+                
                 $plugin->setFile($fullPathToFileOnDisk);
                 $mediaFileAttributes->setPluginResults($pluginName, $plugin->getAttributes());
             }

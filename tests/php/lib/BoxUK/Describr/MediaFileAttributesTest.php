@@ -32,31 +32,4 @@ class MediaFileAttributesTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(count($results->listPlugins()), count($results->listFullPluginNames()));
     }
-
-    public function testErrorHandling() {
-        $mfa = new MediaFileAttributes();
-        try {
-            throw new Exception('foo');
-        } catch(Exception $e) {
-            $mfa->addError('\BoxUK\Describr\Plugins\BoxUK\GeneralPlugin', $e);
-        }
-        try {
-            throw new Exception('bar');
-        } catch(Exception $e) {
-            $mfa->addError('\BoxUK\Describr\Plugins\BoxUK\GeneralPlugin', $e);
-        }
-        try {
-            throw new Exception('baz');
-        } catch(Exception $e) {
-            $mfa->addError('\BoxUK\Describr\Plugins\BoxUK\ImagePlugin', $e);
-        }
-
-        $aErrors = $mfa->getErrors();
-
-        $aGeneral = $aErrors['BoxUK\General'];
-        $this->AssertEquals(2, count($aGeneral));
-
-        $aImage = $aErrors['BoxUK\Image'];
-        $this->AssertEquals(1, count($aImage));
-    }
 }
