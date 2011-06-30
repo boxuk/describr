@@ -61,7 +61,18 @@ class Facade
      * to something the classloader will understand like \BoxUK\Describr\Plugins\BoxUK\ImagePlugin\ImagePlugin
      *
      * @param string $filePathToPlugin e.g. /opt/BoxUK/describr/lib/BoxUK/Describr/plugins/BoxUK/ImagePlugin/ImagePlugin.php
-     *
+     *        // Create an instance of the describr facade - this is the class that wraps all
+        // the functionality of describr and should be the only class you need most
+        // of the time
+        $describr = new \BoxUK\Describr\Facade();
+
+        // analyse a file
+        $file = $argv[1];
+
+        $response = $describr->describeFileAsArray($file);
+
+        // Show what describr was able to work out about this file
+        var_dump($response);
      * @return string  e.g. \BoxUK\Describr\Plugins\BoxUK\ImagePlugin\ImagePlugin
      */
     private function convertFilepathToPackageAndClass( $filePathToPlugin) {
@@ -87,12 +98,12 @@ class Facade
      *
      * @return MediaFileAttributes The information found out about the file at $fullPathToFileOnDisk
      *
-     * @throws FileNotFoundException If the file at $fullPathToFileOnDisk is not
+     * @throws \BoxUK\Describr\FileNotFoundException If the file at $fullPathToFileOnDisk is not
      * readable
      */
     public function describeFile($fullPathToFileOnDisk) {
-        if (!file_exists($fullPathToFileOnDisk)) {
-            throw new FileNotFoundException("$fullPathToFileOnDisk not found or not accessible");
+        if (!is_file($fullPathToFileOnDisk)) {
+            throw new FileNotFoundException("File '$fullPathToFileOnDisk' not found or not accessible");
         }
         
         // ascertain MIME type so we can check what plugins to use

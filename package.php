@@ -11,8 +11,8 @@
  * @link      http://github.com/boxuk/describr
  * @since     1.0.0
  */
-define( 'VERSION', '1.0.4' );
-define( 'BOXUK_PEAR_CHANNEL', 'pear.boxuk.net' ); // pear.boxuk.net
+define( 'VERSION', '1.0.5' );
+define( 'BOXUK_PEAR_CHANNEL', 'pear.gavd-desktop' ); // pear.boxuk.net
 
 require_once( 'PEAR/PackageFileManager2.php' );
 require_once( 'PEAR/PackageFileManager/File.php' );

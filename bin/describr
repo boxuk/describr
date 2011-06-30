@@ -2,5 +2,4 @@
 # You must have set up ../lib/bootstrap.custom.php before running this, and
 # chmod this file to 755
 BASEDIR=$(dirname $0)
-FILE=$(readlink -f $1)
-php $BASEDIR/describr.php $FILE
+php $BASEDIR/describr.php $*
