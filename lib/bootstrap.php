@@ -1,29 +1,17 @@
 <?php
 namespace BoxUK\Describr;
 
-
-// You must set a path to the PHP Reader library in bootstrap.custom.php
-// You must also have Zend framework on your path
+// If you wish to use describr's audio/video plugins, add the path to the PHP Reader library. This can be done by
+// either:
+// 1. (preferred solution) Add them to the PHP include path in your php.ini
+// 2. creating bootstrap.custom.php - see bootstrap.custom.php-sample for an example
+//
+// You must also have Zend framework on your path.
 $describr_pathToPHPReaderLibrary = '';
 
 if (file_exists(dirname(__FILE__) . '/bootstrap.custom.php')) {
     include_once('bootstrap.custom.php');
 }
-
-// make sure we can load PHPReader
-if(strlen ($describr_pathToPHPReaderLibrary) < 1) {
-    throw new \Exception('You must define $describr_pathToPHPReaderLibrary in {describr}/lib/bootstrap.custom.php-sample so Describr knows where to find PHP-Reader');
-}
-if(!file_exists($describr_pathToPHPReaderLibrary)) {
-    throw new \Exception('$describr_pathToPHPReaderLibrary points to a non existent location ('
-            . $describr_pathToPHPReaderLibrary
-            . '). It should point to the \'library\' folder within the PHP Reader structure - this is the folder that contains the folder \'Zend\'');
-}
-
-// make sure we have the correct delimiter for the OS
-$delimiter = (strpos(PHP_OS, 'WIN') !== false) ? ';' : ':';
-
-set_include_path(get_include_path () . $delimiter . $describr_pathToPHPReaderLibrary);
 
 /**
  * Include this file to bootstrap the library. Registers an SPL autoloader to

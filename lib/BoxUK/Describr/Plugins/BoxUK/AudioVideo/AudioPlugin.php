@@ -26,10 +26,10 @@ class AudioPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAudio
      */
     public function checkDependencies() {
         if(!class_exists('\Zend_Media_Id3v1')) {
-            throw new UnmetDependencyException('Class Zend_Media_Id3v1 is not loaded - please ensure the php-reader library is loaded');
+            throw new UnmetDependencyException('Class Zend_Media_Id3v1 is not loaded - please ensure the php-reader library is on the include path if you wish to use this plugin');
         }
         if(!class_exists('\Zend_Media_Id3v2')) {
-            throw new UnmetDependencyException('Class Zend_Media_Id3v2 is not loaded - please ensure the php-reader library is loaded');
+            throw new UnmetDependencyException('Class Zend_Media_Id3v2 is not loaded - please ensure the php-reader library is on the include path if you wish to use this plugin');
         }
     }
 

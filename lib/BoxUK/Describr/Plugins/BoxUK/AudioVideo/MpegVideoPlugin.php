@@ -26,7 +26,7 @@ class MpegVideoPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractA
      */
     public function checkDependencies() {
         if(!class_exists('\Zend_Media_Mpeg_Abs') || !class_exists('\Zend_Media_Mpeg_Ps')) {
-            throw new UnmetDependencyException('Classes Zend_Media_Mpeg_Abs and Zend_Media_Mpeg_Ps must both be loaded - please ensure the php-reader library is loaded');
+            throw new UnmetDependencyException('Classes Zend_Media_Mpeg_Abs and Zend_Media_Mpeg_Ps must both be loaded - please ensure the php-reader library is on the include path if you wish to use this plugin');
         }
     }
 

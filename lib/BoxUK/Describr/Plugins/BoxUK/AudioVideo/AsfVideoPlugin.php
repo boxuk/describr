@@ -24,7 +24,7 @@ class AsfVideoPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAu
      */
     public function checkDependencies() {
         if(!class_exists('\Zend_Media_Asf')) {
-            throw new UnmetDependencyException('Class Zend_Media_Asf is not loaded - please ensure the php-reader library is loaded');
+            throw new UnmetDependencyException('Class Zend_Media_Asf is not loaded - please ensure the php-reader library is on the include path if you wish to use this plugin.');
         }
     }
 

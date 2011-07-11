@@ -1,6 +1,5 @@
 <?php
 /*
- * Provide a path to PHP Reader's src directory
  * If there are any problems loading files, please check that :
  * 1. Make sure you've chmodded {describr}/bin/describr to 755 if you're on Linux/OSX
  * 2. $describr_pathToPHPReaderLibrary is set correctly. It must point to the
@@ -9,7 +8,18 @@
  *    php-reader library
  * 3. Zend Framework should be installed. Installing this by PEAR is probably the
  *    cleanest way to do this, but if you are not able to use PEAR (e.g. you're on
- *    restrictive shared hosting, you can add the following to {describr}/lib/bootstrap.custom.php:
+ *    restrictive shared hosting), you can add the following to {describr}/lib/bootstrap.custom.php:
  *    set_include_path('.:/home/you/yourProject/lib/ZendFramework-1.11.1/library');
  */
 $describr_pathToPHPReaderLibrary = '/opt/php-reader-1.8.1/src';
+
+// make sure we have the correct delimiter for the OS
+$delimiter = (strpos(PHP_OS, 'WIN') !== false) ? ';' : ':';
+
+if(!file_exists($describr_pathToPHPReaderLibrary)) {
+    throw new \Exception('$describr_pathToPHPReaderLibrary points to a non existent location ('
+            . $describr_pathToPHPReaderLibrary
+            . '). It should point to the \'library\' folder within the PHP Reader structure - '
+            . 'this is the folder that contains the folder \'Zend\' or \'src\' depending on php-reader version');
+}
+set_include_path(get_include_path () . $delimiter . $describr_pathToPHPReaderLibrary);

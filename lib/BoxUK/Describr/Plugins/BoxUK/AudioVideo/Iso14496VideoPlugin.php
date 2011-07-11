@@ -27,7 +27,7 @@ class Iso14496VideoPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\Abstr
      */
     public function checkDependencies() {
         if(!class_exists('\Zend_Media_Iso14496')) {
-            throw new UnmetDependencyException('Class Zend_Media_Iso14496 is not loaded - please ensure the php-reader library is loaded');
+            throw new UnmetDependencyException('Class Zend_Media_Iso14496 is not loaded - please ensure the php-reader library is on the include path if you wish to use this plugin');
         }
     }
 
