@@ -1,3 +1,4 @@
+@echo off
 REM Script to run describr from the command line. This script is automatically
 REM installed when you install Describr through PEAR. If you have not installed
 REM through PEAR, ignore this script and use the script "describr" instead, which
