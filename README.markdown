@@ -62,11 +62,11 @@ executable script to help you do this, so if you're on Linux/OSX/Unix, chmod {de
 you should just be able to run {describr root}/bin/describr.bat:
 
 ```bash
-    gavd@gavd-desktop:/opt/BoxUK/describr$ bin/describr
-    describr - tell me about your file...
-    (c) 2011 Box UK
-    Usage: describr [path to file]
-           describr [path to file 1] [path to file 2] ... [path to file N]
+gavd@gavd-desktop:/opt/BoxUK/describr$ bin/describr
+describr - tell me about your file...
+(c) 2011 Box UK
+Usage: describr [path to file]
+       describr [path to file 1] [path to file 2] ... [path to file N]
 ```
 
 If you don't see the above, head back to the Installation section and see if there's anything you've missed. Failing
@@ -75,38 +75,38 @@ that, there's a Troubleshooting section below
 and then you should be able to do something like:
 
 ```bash
-    gavd@gavd-desktop:/opt/BoxUK/describr$ bin/describr tmp.txt
-    Analysing tmp.txt...
-    array(2) {
-      ["BoxUK\General"]=>
-      array(6) {
-        ["errors"]=>
-        array(0) {
-        }
-        ["extension"]=>
-        string(3) "txt"
-        ["type"]=>
-        string(8) "document"
-        ["mimeType"]=>
-        string(10) "text/plain"
-        ["fileSizeInBytes"]=>
-        int(4)
-        ["fileSize"]=>
-        string(11) "Extra Small"
-      }
-      ["BoxUK\PlainText"]=>
-      array(4) {
-        ["errors"]=>
-        array(0) {
-        }
-        ["lines"]=>
-        int(1)
-        ["characters"]=>
-        int(4)
-        ["words"]=>
-        int(1)
-      }
+gavd@gavd-desktop:/opt/BoxUK/describr$ bin/describr tmp.txt
+Analysing tmp.txt...
+array(2) {
+  ["BoxUK\General"]=>
+  array(6) {
+    ["errors"]=>
+    array(0) {
     }
+    ["extension"]=>
+    string(3) "txt"
+    ["type"]=>
+    string(8) "document"
+    ["mimeType"]=>
+    string(10) "text/plain"
+    ["fileSizeInBytes"]=>
+    int(4)
+    ["fileSize"]=>
+    string(11) "Extra Small"
+  }
+  ["BoxUK\PlainText"]=>
+  array(4) {
+    ["errors"]=>
+    array(0) {
+    }
+    ["lines"]=>
+    int(1)
+    ["characters"]=>
+    int(4)
+    ["words"]=>
+    int(1)
+  }
+}
 ```
 
 So, we're up and running! Unless we're not, in which case:
@@ -128,9 +128,9 @@ Please check that:
    restrictive shared hosting, you can add the following to {describr root}/lib/bootstrap.custom.php:
 
 ```php
-    <?php
-    // ... add the line below to the end of the file
-    set_include_path('.:/home/you/yourProject/lib/ZendFramework-1.11.1/library');
+<?php
+// ... add the line below to the end of the file
+set_include_path('.:/home/you/yourProject/lib/ZendFramework-1.11.1/library');
 ```
 
 Of course, you will have to adjust the paths to point to where Zend is installed.
@@ -150,39 +150,39 @@ plugin has one class that implements Plugin, mainly by extending AbstractPlugin.
 You specify the dependencies for each plugin in the plugin's code. Here's an example from ImagePlugin.php:
 
 ```php
-    /**
-     * Make sure that this plugin has everything that it needs - i.e. GD
-     *
-     * @throws UnmetDependencyException If a dependency is not met
-     */
-    public function checkDependencies() {
-        if (!extension_loaded('gd') || !function_exists('gd_info')) {
-            throw new UnmetDependencyException('GD is not installed');
-        }
+/**
+ * Make sure that this plugin has everything that it needs - i.e. GD
+ *
+ * @throws UnmetDependencyException If a dependency is not met
+ */
+public function checkDependencies() {
+    if (!extension_loaded('gd') || !function_exists('gd_info')) {
+        throw new UnmetDependencyException('GD is not installed');
     }
+}
 ```
 
 If the dependencies of a plugin are not met (i.e. checkDependencies() fails), that plugin cannot be used, and will fail
 silently and record an error when it finds a file it can match but can't report on because of missing dependencies:
 
 ```bash
-    gavd@gavd-desktop:/opt/BoxUK/describr$ bin/describr tests/resources/test.mov
-    Analysing tests/resources/test.mov...
-    array(2) {
-      ["BoxUK\General"]=>
-        *removed for brevity*
-      ["BoxUK\AudioVideo\Iso14496Video"]=>
-      array(1) {
-        ["errors"]=>
-        array(1) {
-          [0]=>
-          string(1236) "This plugin matched the file tests/resources/test.mov, but the dependencies could not be matched. Details:
-    exception 'BoxUK\Describr\Plugins\UnmetDependencyException' with message 'Class Zend_Media_Iso14496 is not loaded - please ensure the php-reader library is on the include path if you wish to use this plugin' in /opt/BoxUK/describr/lib/BoxUK/Describr/Plugins/BoxUK/AudioVideo/Iso14496VideoPlugin.php:30
-    Stack trace: *removed for brevity*
+gavd@gavd-desktop:/opt/BoxUK/describr$ bin/describr tests/resources/test.mov
+Analysing tests/resources/test.mov...
+array(2) {
+  ["BoxUK\General"]=>
+    *removed for brevity*
+  ["BoxUK\AudioVideo\Iso14496Video"]=>
+  array(1) {
+    ["errors"]=>
+    array(1) {
+      [0]=>
+      string(1236) "This plugin matched the file tests/resources/test.mov, but the dependencies could not be matched. Details:
+exception 'BoxUK\Describr\Plugins\UnmetDependencyException' with message 'Class Zend_Media_Iso14496 is not loaded - please ensure the php-reader library is on the include path if you wish to use this plugin' in /opt/BoxUK/describr/lib/BoxUK/Describr/Plugins/BoxUK/AudioVideo/Iso14496VideoPlugin.php:30
+Stack trace: *removed for brevity*
 
-        }
-      }
     }
+  }
+}
 ```
 
 ### Creating a plugin
@@ -194,60 +194,60 @@ to illustrate Describr plugins!
 We create a file {describr root}/lib/BoxUK/Describr/Plugins/Custom/XmlPlugin.php with the following contents:
 
 ```php
-    <?php
+<?php
 
-    namespace BoxUK\Describr\Plugins\Custom;
+namespace BoxUK\Describr\Plugins\Custom;
+
+/**
+ * Plugin for automatically describing XML files
+ *
+ * @package   BoxUK\Describr\Plugins\BoxUK
+ * @author    Box UK <opensource@boxuk.com>
+ * @copyright Copyright (c) 2011, Box UK
+ * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
+ * @link      http://github.com/boxuk/describr
+ * @since     1.0.5
+ */
+class XmlPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
+{
 
     /**
-     * Plugin for automatically describing XML files
-     *
-     * @package   BoxUK\Describr\Plugins\BoxUK
-     * @author    Box UK <opensource@boxuk.com>
-     * @copyright Copyright (c) 2011, Box UK
-     * @license   http://opensource.org/licenses/mit-license.php MIT License and http://www.gnu.org/licenses/gpl.html GPL license
-     * @link      http://github.com/boxuk/describr
-     * @since     1.0.5
+     * @return array Types of file this plugin can determine information about
      */
-    class XmlPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
-    {
-
-        /**
-         * @return array Types of file this plugin can determine information about
-         */
-        public function getMatchingMimeTypes() {
-            return array(
-                'text/xml'
-            );
-        }
-
-        /**
-         * @return array File extensions this plugin can determine information about.
-         * The "." is not included, so "wmf" is OK, ".wmf" is not
-         */
-        public function getMatchingFileExtensions() {
-            return array(
-                'xml',
-                'xsl',
-            );
-        }
-
-        /**
-         * Stub out configuration loading
-         */
-        protected function loadConfiguration() {}
-
-        /**
-         * @return array With key 'tags' which is a count of tags in this document
-         */
-        protected function setAttributes() {
-            $fileContents = file_get_contents($this->fullPathToFileOnDisk);
-            $tagOpenCount = substr_count($fileContents, '<');
-            $tagCloseCount = substr_count($fileContents, '</');
-            $tagCount = $tagOpenCount - $tagCloseCount;
-
-            $this->attributes['tags'] = $tagCount;
-        }
+    public function getMatchingMimeTypes() {
+        return array(
+            'text/xml'
+        );
     }
+
+    /**
+     * @return array File extensions this plugin can determine information about.
+     * The "." is not included, so "wmf" is OK, ".wmf" is not
+     */
+    public function getMatchingFileExtensions() {
+        return array(
+            'xml',
+            'xsl',
+        );
+    }
+
+    /**
+     * Stub out configuration loading
+     */
+    protected function loadConfiguration() {}
+
+    /**
+     * @return array With key 'tags' which is a count of tags in this document
+     */
+    protected function setAttributes() {
+        $fileContents = file_get_contents($this->fullPathToFileOnDisk);
+        $tagOpenCount = substr_count($fileContents, '<');
+        $tagCloseCount = substr_count($fileContents, '</');
+        $tagCount = $tagOpenCount - $tagCloseCount;
+
+        $this->attributes['tags'] = $tagCount;
+    }
+}
 ```
 
 Notice we haven't specified any dependencies here - it's all vanilla PHP.
@@ -255,44 +255,44 @@ Notice we haven't specified any dependencies here - it's all vanilla PHP.
 Now, if we run our test script against Describr's own build.xml (for example), the XML plugin should automatically be used!
 
 ```bash
-    gavd@gavd-desktop:/opt/BoxUK/describr$ bin/describr build.xml
-    Analysing build.xml...
-    array(3) {
-      ["BoxUK\General"]=>
-      array(5) {
-        ["errors"]=>
-        array(0) {
-        }
-        ["extension"]=>
-        string(3) "xml"
-        ["type"]=>
-        NULL
-        ["mimeType"]=>
-        string(15) "application/xml"
-        ["fileSizeInBytes"]=>
-        int(1191)
-      }
-      ["BoxUK\PlainText"]=>
-      array(4) {
-        ["errors"]=>
-        array(0) {
-        }
-        ["lines"]=>
-        int(34)
-        ["characters"]=>
-        int(1191)
-        ["words"]=>
-        int(122)
-      }
-      ["Custom\Xml"]=>
-      array(2) {
-        ["errors"]=>
-        array(0) {
-        }
-        ["tags"]=>
-        int(15)
-      }
+gavd@gavd-desktop:/opt/BoxUK/describr$ bin/describr build.xml
+Analysing build.xml...
+array(3) {
+  ["BoxUK\General"]=>
+  array(5) {
+    ["errors"]=>
+    array(0) {
     }
+    ["extension"]=>
+    string(3) "xml"
+    ["type"]=>
+    NULL
+    ["mimeType"]=>
+    string(15) "application/xml"
+    ["fileSizeInBytes"]=>
+    int(1191)
+  }
+  ["BoxUK\PlainText"]=>
+  array(4) {
+    ["errors"]=>
+    array(0) {
+    }
+    ["lines"]=>
+    int(34)
+    ["characters"]=>
+    int(1191)
+    ["words"]=>
+    int(122)
+  }
+  ["Custom\Xml"]=>
+  array(2) {
+    ["errors"]=>
+    array(0) {
+    }
+    ["tags"]=>
+    int(15)
+  }
+}
 ```
 
 ## Accessing through your project
@@ -301,10 +301,10 @@ Using Describr on the command line is all well and good for getting going and te
 using it in a project to tell you about files. You can do something like:
 
 ```php
-    <?php
-    // ...
-    $this->describr = new \BoxUK\Describr\Facade();
-    $responseFromDescribr = $this->describr->describeFile($pathToFile);
+<?php
+// ...
+$this->describr = new \BoxUK\Describr\Facade();
+$responseFromDescribr = $this->describr->describeFile($pathToFile);
 ```
 
 This will give you a BoxUK\Describr\MediaFileAttributes object, which you can interrogate to find out which plugins said
