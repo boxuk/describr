@@ -11,3 +11,4 @@ catalog.xml
 *.tgz
 .idea/*
 lib/BoxUK/Describr/Plugins/Custom/XmlPlugin.php
+peartest.sh
