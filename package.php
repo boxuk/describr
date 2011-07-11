@@ -11,11 +11,17 @@
  * @link      http://github.com/boxuk/describr
  * @since     1.0.0
  */
-define( 'VERSION', '1.1.3' );
 define( 'BOXUK_PEAR_CHANNEL', 'pear.boxuk.net' );
 
 require_once( 'PEAR/PackageFileManager2.php' );
 require_once( 'PEAR/PackageFileManager/File.php' );
+
+@list( $IGNORE, $version ) = $_SERVER['argv'];
+
+if ( !$version ) {
+    echo "usage: php package.php VERSION\n";
+    exit( 1 );
+}
 
 $aFilesToIgnore = array();
 $aFilesToIgnore[] = 'bootstrap.php';
@@ -38,8 +44,8 @@ $packagexml->setPackage( 'describr' );
 $packagexml->setSummary( 'So, tell me about your file...' );
 $packagexml->setDescription( 'Given any file, Describr will describe it. Can be used as a command line script or within a PHP project' );
 $packagexml->setChannel( BOXUK_PEAR_CHANNEL );
-$packagexml->setAPIVersion( VERSION );
-$packagexml->setReleaseVersion( VERSION );
+$packagexml->setAPIVersion( $version );
+$packagexml->setReleaseVersion( $version );
 $packagexml->setReleaseStability( 'stable' );
 $packagexml->setAPIStability( 'stable' );
 $packagexml->setNotes( "-" );
