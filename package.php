@@ -11,7 +11,7 @@
  * @link      http://github.com/boxuk/describr
  * @since     1.0.0
  */
-define( 'VERSION', '1.0.6' );
+define( 'VERSION', '1.1.1' );
 define( 'BOXUK_PEAR_CHANNEL', 'pear.boxuk.net' ); // 
 
 require_once( 'PEAR/PackageFileManager2.php' );
@@ -23,7 +23,7 @@ $aFilesToIgnore[] = 'bootstrap.custom.php';
 $aFilesToIgnore[] = 'bootstrap.custom.php-sample';
 
 $packagexml = new PEAR_PackageFileManager2();
-$packagexml->addPackageDepWithChannel('package', 'Autoload', BOXUK_PEAR_CHANNEL, '1.0.0');
+$packagexml->addPackageDepWithChannel('package', 'Autoload', BOXUK_PEAR_CHANNEL, '1.0.1');
         
 $packagexml->setOptions(array(
     'dir_roles' => array(
