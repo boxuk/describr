@@ -11,8 +11,8 @@
  * @link      http://github.com/boxuk/describr
  * @since     1.0.0
  */
-define( 'VERSION', '1.1.1' );
-define( 'BOXUK_PEAR_CHANNEL', 'pear.boxuk.net' ); // 
+define( 'VERSION', '1.1.2' );
+define( 'BOXUK_PEAR_CHANNEL', 'pear.boxuk.net' );
 
 require_once( 'PEAR/PackageFileManager2.php' );
 require_once( 'PEAR/PackageFileManager/File.php' );
@@ -36,7 +36,7 @@ $packagexml->setOptions(array(
         
 $packagexml->setPackage( 'describr' );
 $packagexml->setSummary( 'So, tell me about your file...' );
-$packagexml->setDescription( 'Given any file, describr will describe it. Can be used as a command line script or within a PHP project' );
+$packagexml->setDescription( 'Given any file, Describr will describe it. Can be used as a command line script or within a PHP project' );
 $packagexml->setChannel( BOXUK_PEAR_CHANNEL );
 $packagexml->setAPIVersion( VERSION );
 $packagexml->setReleaseVersion( VERSION );
@@ -45,18 +45,27 @@ $packagexml->setAPIStability( 'stable' );
 $packagexml->setNotes( "-" );
 $packagexml->setPackageType( 'php' );
 
+$packagexml->addReplacement('BoxUK/Describr/Plugins/BoxUK/ImageMainColourPicker.php', 'pear-config',  '@DATA_DIR@', 'data_dir');
+$packagexml->addReplacement('bin/describr-pear.php', 'pear-config',  '@PHP_DIR@', 'php_dir');
+
+////////////WINDOWS///////////////////////////
 $packagexml->addRelease(); // WINDOWS
 $packagexml->setOSInstallCondition('windows');
-//$packagexml->addInstallAs('bin/describr-pear.bat', 'describr.bat'); # TODO Windows support
+$packagexml->addInstallAs('bin/describr-pear.bat', 'describr.bat');
+$packagexml->addReplacement('bin/describr-pear.bat', 'pear-config',  '@PHP_BIN@', 'php_bin');
+$packagexml->addReplacement('bin/describr-pear.bat', 'pear-config',  '@BIN_DIR@', 'bin_dir');
 
+$packagexml->addInstallAs('bin/describr-pear.php', 'describr-pear.php');
+/////////////////////////////////////////////
+
+///////////NON-WINDOWS///////////////////////
 $packagexml->addRelease(); // NON-WINDOWS
 $packagexml->addInstallAs('bin/describr-pear', 'describr');
-$packagexml->addInstallAs('bin/describr-pear.php', 'describr-pear.php');
-
 $packagexml->addReplacement('bin/describr-pear', 'pear-config',  '@PHP_BIN@', 'php_bin');
 $packagexml->addReplacement('bin/describr-pear', 'pear-config',  '@BIN_DIR@', 'bin_dir');
-$packagexml->addReplacement('bin/describr-pear.php', 'pear-config',  '@PHP_DIR@', 'php_dir');
-$packagexml->addReplacement('BoxUK/Describr/Plugins/BoxUK/ImageMainColourPicker.php', 'pear-config',  '@DATA_DIR@', 'data_dir');
+
+$packagexml->addInstallAs('bin/describr-pear.php', 'describr-pear.php');
+/////////////////////////////////////////////
 
 $packagexml->setPhpDep( '5.3.0' );
 $packagexml->setPearinstallerDep( '1.3.0' );

@@ -91,7 +91,7 @@ class Cli {
      * being run in CLI mode
      */
     protected function showHelpText() {
-        echo "describr - tell me about your file...\n";
+        echo "Describr - tell me about your file...\n";
         echo "(c) 2011 Box UK\n";
         echo "Usage: describr [path to file]\n";
         echo "       describr [path to file 1] [path to file 2] ... [path to file N]\n";
