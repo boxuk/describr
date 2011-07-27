@@ -119,9 +119,24 @@ class FileHelper
      * Taken from http://stackoverflow.com/questions/1147931/how-do-i-determine-the-extensions-associated-with-a-mime-type-in-php
      */
     private static function getSystemExtensionMimeTypes() {
+        $fp = null;
         $out = array();
-        $file = fopen('/etc/mime.types', 'r');
-        while(($line = fgets($file)) !== false) {
+        
+        $mimeTypeFile = dirname(__FILE__) . '/../../../resources/mime.types';
+        
+        if (!file_exists($mimeTypeFile)) {
+            // see if this is a PEAR install
+            $mimeTypeFile = '@DATA_DIR@/describr/resources/mime.types';
+        }
+        
+        if (!file_exists($mimeTypeFile)) {
+            throw new FileNotFoundException("Cannot mime types file $mimeTypeFile");
+        }
+        if (!$fp = fopen($mimeTypeFile, 'r')) {
+            return false;
+        }
+        
+        while(($line = fgets($fp)) !== false) {
             $line = trim(preg_replace('/#.*/', '', $line));
             if (!$line) {
                 continue;
@@ -135,7 +150,7 @@ class FileHelper
                 $out[$part] = $type;
             }
         }
-        fclose($file);
+        fclose($fp);
         return $out;
     }
 }
