@@ -2,8 +2,8 @@
 /**
  * Package file for creating PEAR packages. This file defines how the PEAR
  * package should be constructed.
- *
- * Before a new tag is made, VERSION should be incremented to the new tag identifier.
+ * 
+ * usage: php package.php VERSION
  *
  * @author    Box UK <opensource@boxuk.com>
  * @copyright Copyright (c) 2011, Box UK
