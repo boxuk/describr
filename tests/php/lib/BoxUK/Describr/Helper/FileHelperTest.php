@@ -46,11 +46,6 @@ class FileHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('text/plain', FileHelper::getMimeType($pathToFile));
     }
 
-    public function testDetectsCorrectMimeTypeUsingMagicNumbersAndFallingBackToExtensionLookupForWmv() {
-        $pathToFile = dirname(__FILE__) . '/../../../../../resources/test.wmv';
-        $this->assertEquals('video/x-ms-wmv', FileHelper::getMimeType($pathToFile));
-    }
-
     public function testDetectsCorrectMimeTypeUsingMagicNumbersAndFallingBackToExtensionLookupForMpeg() {
         $pathToFile = dirname(__FILE__) . '/../../../../../resources/test.mpeg';
         $this->assertEquals('video/mpeg', FileHelper::getMimeType($pathToFile));
