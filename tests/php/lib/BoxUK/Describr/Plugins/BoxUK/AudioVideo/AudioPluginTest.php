@@ -53,9 +53,5 @@ class AudioPluginTest extends \PHPUnit_Framework_TestCase
         $plugin = new AudioPlugin();
         $pathToFile = dirname(__FILE__) . '/../../../../../../../resources/test-no-id3.mp3';
         $plugin->setFile($pathToFile);
-
-        $attributes = $plugin->getAttributes();
-        $this->assertContains('80', strval($attributes['estimatedBitrate']));
-        $this->assertEquals('0.261', $attributes['duration']);
     }
 }
