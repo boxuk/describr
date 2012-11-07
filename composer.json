@@ -1,5 +1,5 @@
 {
-    "name": "boxuk/composer",
+    "name": "boxuk/describr",
     "type": "library",
     "description": "So, tell me about your file... Given any file, PHP library describr will describe it",
     "keywords": ["filesystem, media, metadata"],
