@@ -1,0 +1,23 @@
+{
+    "name": "boxuk/composer",
+    "type": "library",
+    "description": "So, tell me about your file... Given any file, PHP library describr will describe it",
+    "keywords": ["filesystem, media, metadata"],
+    "authors": [
+        {
+            "name": "Gavin Davies",
+            "email": "gavin.davies@gmail.com"
+        },
+        {
+            "name": "Craig Marvelley",
+            "email": "craig.marvelley@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-fileinfo": "*"
+    },
+    "autoload": {
+        "psr-0": { "BoxUK\\Describr": "lib/" }
+    }
+}
