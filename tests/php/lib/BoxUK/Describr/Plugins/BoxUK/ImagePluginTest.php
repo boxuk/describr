@@ -56,6 +56,8 @@ class ImagePluginTest extends \PHPUnit_Framework_TestCase
         $imagePlugin->setFile($pathToFile);
 
         $attributes = $imagePlugin->getAttributes();
+        $this->assertEquals('404', $attributes['width']);
+        $this->assertEquals('268', $attributes['height']);
         $this->assertEquals('Landscape', $attributes['orientation']);
         $this->assertEquals('Small', $attributes['dimensions']);
         $this->assertEquals('SeaGreen', $attributes['mainColour']);
@@ -67,6 +69,8 @@ class ImagePluginTest extends \PHPUnit_Framework_TestCase
         $imagePlugin->setFile($pathToFile);
 
         $attributes = $imagePlugin->getAttributes();
+        $this->assertEquals('403', $attributes['width']);
+        $this->assertEquals('1000', $attributes['height']);
         $this->assertEquals('Portrait', $attributes['orientation']);
         $this->assertEquals('Medium', $attributes['dimensions']);
         $this->assertEquals('Yellow', $attributes['mainColour']);
@@ -78,6 +82,8 @@ class ImagePluginTest extends \PHPUnit_Framework_TestCase
         $imagePlugin->setFile($pathToFile);
 
         $attributes = $imagePlugin->getAttributes();
+        $this->assertEquals('700', $attributes['width']);
+        $this->assertEquals('464', $attributes['height']);
         $this->assertEquals('Landscape', $attributes['orientation']);
         $this->assertEquals('Medium', $attributes['dimensions']);
         $this->assertEquals('RoyalBlue', $attributes['mainColour']);
