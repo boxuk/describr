@@ -23,6 +23,16 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
     protected $picker;
 
     /**
+     * @var int Image Width
+     */
+    protected $width;
+
+    /**
+     * @var int Image Height
+     */
+    protected $height;
+
+    /**
      * Make sure that this plugin has everything that it needs - i.e. GD
      *
      * @throws UnmetDependencyException If a dependency is not met
@@ -64,12 +74,30 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      */
     protected function setAttributes() {
         $this->attributes = array_merge(
+            $this->getImageDimensions(),
             $this->getAutoTagsByOrientationAndDimensions(),
             $this->getAutoTagsByFileColour()
         );
     }
 
     // Implementation methods
+
+    /**
+     * Determines the width and height of an image in pixels
+     *
+     * @return array
+     */
+    protected function getImageDimensions()
+    {
+        if (!($this->height && $this->width)) {
+            list($this->width, $this->height) = getimagesize($this->fullPathToFileOnDisk);
+        }
+
+        return array(
+            'width' => $this->width,
+            'height' => $this->height
+        );
+    }
 
     /**
      * Automatically tag this file by file colour, adding the array key 'mainColour
@@ -114,8 +142,10 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      */
     private function getAutoTagsByOrientationAndDimensions() {
 
-        // determine width of image
-        list($widthInPx, $heightInPx) = getimagesize($this->fullPathToFileOnDisk);
+        // determine  dimensions
+        $dimensions = $this->getImageDimensions();
+        $heightInPx = $dimensions['height'];
+        $widthInPx = $dimensions['width'];
 
         // Guard conditions
         if (   is_null  ($heightInPx) || !is_numeric($heightInPx)

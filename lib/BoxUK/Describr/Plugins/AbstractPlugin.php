@@ -23,6 +23,11 @@ abstract class AbstractPlugin implements Plugin
     public function checkDependencies() {}
 
     /**
+     * @var array The attributes that the plugin detects
+     */
+    protected $attributes = array();
+
+    /**
      * @var string Full path to the file on the disk
      */
     protected $fullPathToFileOnDisk;
