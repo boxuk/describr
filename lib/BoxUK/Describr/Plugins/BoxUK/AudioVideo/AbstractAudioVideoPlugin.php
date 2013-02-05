@@ -14,12 +14,13 @@ namespace BoxUK\Describr\Plugins\BoxUK\AudioVideo;
  * @link      http://code.google.com/p/php-reader/ Library used by this plugin
  * @link      http://framework.zend.com/ Library used by this plugin
  */
-abstract class AbstractAudioVideoPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin {
-
+abstract class AbstractAudioVideoPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
+{
     /**
      * This function is common to audio and video as mpeg can be video/audio
      */
-    protected function addMpegLengthInformationToAttributes() {
+    protected function addMpegLengthInformationToAttributes()
+    {
         try {
             $ps = new \Zend_Media_Mpeg_Ps($this->fullPathToFileOnDisk);
             $this->attributes['length'] = $ps->getLength();

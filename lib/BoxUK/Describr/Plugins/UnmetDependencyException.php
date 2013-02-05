@@ -13,5 +13,5 @@ namespace BoxUK\Describr\Plugins;
  */
 class UnmetDependencyException extends \BoxUK\Describr\Exception
 {
-    
+
 }

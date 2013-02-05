@@ -18,26 +18,29 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
     /**
      * @return array Types of file this plugin can determine information about
      */
-    public function getMatchingMimeTypes() {
+    public function getMatchingMimeTypes()
+    {
         return array(
             '*',
         );
     }
-    
+
     /**
      * @return array File extensions this plugin can determine information about.
      * The "." is not included, so "wmf" is OK, ".wmf" is not
      */
-    public function getMatchingFileExtensions() {
+    public function getMatchingFileExtensions()
+    {
         return array(
             '*'
         );
     }
-    
+
     /**
      * @return array with keys "extension", "type", "mimeType"
      */
-    public function setAttributes() {
+    public function setAttributes()
+    {
         $this->attributes['extension'] = $this->getFileExtension();
         $this->attributes['type'] = $this->getFileType();
         $this->attributes['mimeType'] = $this->mimeTypeOfCurrentFile;
@@ -46,12 +49,13 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $this->addAutoTagsByFileSize();
     }
 
-    // Generic methods 
+    // Generic methods
 
     /**
      * @return int The number of bytes in the file
      */
-    private function getFileSizeInBytes() {
+    private function getFileSizeInBytes()
+    {
         return filesize($this->fullPathToFileOnDisk);
     }
 
@@ -60,7 +64,8 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      *
      * @return boolean true if checks failed
      */
-    private function guardConditionsForAutoTagByFileSize() {
+    private function guardConditionsForAutoTagByFileSize()
+    {
         $fileExtension = $this->getFileExtension($this->fullPathToFileOnDisk);
         $fileTypeFromExt = $this->getFileType($fileExtension);
 
@@ -74,30 +79,32 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      * Automatically tag this file by file size, relative to the type of
      * file - e.g. a 1mb jpg is large but a 1mb video is small
      */
-    private function addAutoTagsByFileSize() {
+    private function addAutoTagsByFileSize()
+    {
         if ($this->guardConditionsForAutoTagByFileSize($this->fullPathToFileOnDisk)) {
             return;
         }
 
         $sizeInKb = filesize ($this->fullPathToFileOnDisk) / 1024;
-        
+
         $function = 'getSizeOf' . ucfirst($this->getFileType());
         if(!function_exists($function)) {
             $function = 'getSizeOf';
         }
         $fileSizeDescription = $this->$function($sizeInKb);
-        
+
 
         $this->attributes['fileSize'] = $fileSizeDescription;
     }
-    
+
     /**
      * How big is $sizeInKb, expressed in natural language?
      * Catch-all for when the file type isn't met by $this->getSizeOf{fileType}
      * @param type $sizeInKb How big a given file is, in kilobytes
      * @return string e.g. 'Extra Large' or 'Medium'
      */
-    protected function getSizeOf($sizeInKb) {
+    protected function getSizeOf($sizeInKb)
+    {
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 32) {
             $fileSizeDescription = 'Extra Small';
@@ -105,18 +112,19 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 512) {
             $fileSizeDescription = 'Medium';
-        } else if ($sizeInKb < 2048) {
+        } elseif ($sizeInKb < 2048) {
             $fileSizeDescription = 'Large';
         }
         return $fileSizeDescription;
     }
-    
+
     /**
      * How big is $sizeInKb, expressed in natural language?
      * @param type $sizeInKb How big a given file is, in kilobytes
      * @return string e.g. 'Extra Large' or 'Medium'
      */
-    protected function getSizeOfImage($sizeInKb) {
+    protected function getSizeOfImage($sizeInKb)
+    {
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 16) {
             $fileSizeDescription = 'Extra Small';
@@ -124,27 +132,29 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 64) {
             $fileSizeDescription = 'Medium';
-        } else if ($sizeInKb < 128) {
+        } elseif ($sizeInKb < 128) {
             $fileSizeDescription = 'Large';
         }
         return $fileSizeDescription;
     }
-    
+
     /**
      * How big is $sizeInKb, expressed in natural language?
      * @param type $sizeInKb How big a given file is, in kilobytes
      * @return string e.g. 'Extra Large' or 'Medium'
      */
-    protected function getSizeOfAudio($sizeInKb) {
+    protected function getSizeOfAudio($sizeInKb)
+    {
         return $this->getSizeOfDocument($sizeInKb);
     }
-    
+
     /**
      * How big is $sizeInKb, expressed in natural language?
      * @param type $sizeInKb How big a given file is, in kilobytes
      * @return string e.g. 'Extra Large' or 'Medium'
      */
-    protected function getSizeOfDocument($sizeInKb) {
+    protected function getSizeOfDocument($sizeInKb)
+    {
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 32) {
             $fileSizeDescription = 'Extra Small';
@@ -152,18 +162,19 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 1024) {
             $fileSizeDescription = 'Medium';
-        } else if ($sizeInKb < 2048) {
+        } elseif ($sizeInKb < 2048) {
             $fileSizeDescription = 'Large';
         }
         return $fileSizeDescription;
     }
-    
+
     /**
      * How big is $sizeInKb, expressed in natural language?
      * @param type $sizeInKb How big a given file is, in kilobytes
      * @return string e.g. 'Extra Large' or 'Medium'
      */
-    protected function getSizeOfMovie($sizeInKb) {
+    protected function getSizeOfMovie($sizeInKb)
+    {
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 128) {
             $fileSizeDescription = 'Extra Small';
@@ -171,7 +182,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 2048) {
             $fileSizeDescription = 'Medium';
-        } else if ($sizeInKb < 8096) {
+        } elseif ($sizeInKb < 8096) {
             $fileSizeDescription = 'Large';
         }
         return $fileSizeDescription;

@@ -49,7 +49,8 @@ abstract class AbstractPlugin implements Plugin
      * @throws ConfigurationNotLoadedException If configuration was not loaded
      */
     //@codingStandardsIgnoreStart
-    public function getConfigurationValue($valueName, $defaultValue) {
+    public function getConfigurationValue($valueName, $defaultValue)
+    {
         return $defaultValue;
     }
     //@codingStandardsIgnoreEnd
@@ -63,7 +64,8 @@ abstract class AbstractPlugin implements Plugin
      *
      * @throws FileNotFoundException If file $fullPathToFileOnDisk not found
      */
-    public function setFile($fullPathToFileOnDisk) {
+    public function setFile($fullPathToFileOnDisk)
+    {
         if (!file_exists($fullPathToFileOnDisk)) {
             throw new FileNotFoundException("$fullPathToFileOnDisk not found or not accessible");
         }
@@ -76,7 +78,8 @@ abstract class AbstractPlugin implements Plugin
      *
      * @return string e.g. "png"
      */
-    protected function getFileExtension() {
+    protected function getFileExtension()
+    {
         return \BoxUK\Describr\Helper\FileHelper::getFileExtension($this->fullPathToFileOnDisk);
     }
 
@@ -84,28 +87,30 @@ abstract class AbstractPlugin implements Plugin
      * @return string|null A rough categorisation of the file, such as
      * "document", "image" or "audio"
      */
-    protected function getFileType() {
+    protected function getFileType()
+    {
         return \BoxUK\Describr\Helper\FileHelper::getFileTypeFromExtension($this->fullPathToFileOnDisk);
     }
-    
+
     /**
      * Does this plugin support the file? Two checks are made, if either check
      * passes then true is returned.
-     * 
+     *
      * @param type $mimeType e.g. "text/plain"
      * @param type $extension Not including the ".", e.g. "wmf" is OK but ".wmf" is not
-     * 
+     *
      * @return bool TRUE if this plugin supports $mimeType and/or files with extension $extension,
      *     FALSE if it supports neither
      */
-    public function supportsFile($mimeType, $extension) {
+    public function supportsFile($mimeType, $extension)
+    {
         if($this->supportsMimeType($mimeType)) {
             return true;
         }
         if($this->supportsFileExtension($extension)) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -115,7 +120,8 @@ abstract class AbstractPlugin implements Plugin
      * $mimeType. If the plugin matches "*" as a mime type, all files can be
      * run through it.
      */
-    public function supportsMimeType($mimeType) {
+    public function supportsMimeType($mimeType)
+    {
         $matchingMimeTypes = $this->getMatchingMimeTypes();
         if (\in_array('*', $matchingMimeTypes)) {
             return true;
@@ -123,54 +129,58 @@ abstract class AbstractPlugin implements Plugin
         if (\in_array($mimeType, $matchingMimeTypes)) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * @param type $extension Not including the ".", e.g. "wmf" is OK but ".wmf" is not
      * @return boolean True if this plugin can operate on files of extension
      * $extension.
      */
-    public function supportsFileExtension($extension) {
+    public function supportsFileExtension($extension)
+    {
         $matchingFileExtensions = $this->getMatchingFileExtensions();
         if (\in_array($extension, $matchingFileExtensions)) {
             return true;
         }
-        
+
         return false;
     }
 
     /**
      * Reset the attributes to an empty collection
      */
-    protected function resetAttributes() {
+    protected function resetAttributes()
+    {
         $this->attributes = array(
             'errors' => array()
         );
     }
-    
+
     /**
      * Add an error that occurred on this plugin
-     * @param string $errorMsg 
+     * @param string $errorMsg
      */
-    protected function addError($errorMsg) {
+    protected function addError($errorMsg)
+    {
         $this->attributes['errors'][] = $errorMsg;
     }
-    
+
     /**
      * @return array Array of error messages
      */
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->attributes['errors'];
     }
-    
+
 
     /**
      * Set up the internal attributes collection from everything this plugin
      * can work out about the file. Every plugin must define this.
      */
-    protected abstract function setAttributes();
+    abstract protected function setAttributes();
 
     /**
      * Reset the attributes, set them, then return them. If dependencies are not
@@ -179,21 +189,21 @@ abstract class AbstractPlugin implements Plugin
      * @return array The attributes this plugin is able to collect on the loaded
      * file
      */
-    public function getAttributes() {
+    public function getAttributes()
+    {
         $this->resetAttributes();
-        
+
         try {
             $this->checkDependencies();
             $this->setAttributes();
         } catch(UnmetDependencyException $e) {
-            $this->addError("This plugin matched the file " . $this->fullPathToFileOnDisk 
+            $this->addError("This plugin matched the file " . $this->fullPathToFileOnDisk
                     . ", but the dependencies could not be matched. Details:\n"
                     . $e->__toString());
-        }
-         catch(Exception $e) {
+        } catch(Exception $e) {
             $this->addError($e->__toString());
         }
-        
+
         return $this->attributes;
     }
 }

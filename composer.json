@@ -16,7 +16,8 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "ext-fileinfo": "*"
+        "ext-fileinfo": "*",
+        "zendframework/zendframework1": "1.12.*"
     },
     "autoload": {
         "psr-0": { "BoxUK\\Describr": "lib/" }

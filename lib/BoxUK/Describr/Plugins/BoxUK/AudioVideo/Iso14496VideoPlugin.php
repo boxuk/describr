@@ -17,15 +17,16 @@ use BoxUK\Describr\Plugins\UnmetDependencyException;
  * @link      http://code.google.com/p/php-reader/ Library used by this plugin
  * @link      http://framework.zend.com/ Library used by this plugin
  */
-class Iso14496VideoPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAudioVideoPlugin {
-
+class Iso14496VideoPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAudioVideoPlugin
+{
     /**
      * Make sure that this plugin has everything that it needs - PHPReader
      * must be installed
      *
      * @throws UnmetDependencyException If a dependency is not met
      */
-    public function checkDependencies() {
+    public function checkDependencies()
+    {
         if(!class_exists('\Zend_Media_Iso14496')) {
             throw new UnmetDependencyException('Class Zend_Media_Iso14496 is not loaded - please ensure the php-reader library is on the include path if you wish to use this plugin');
         }
@@ -34,35 +35,39 @@ class Iso14496VideoPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\Abstr
     /**
      * @return array Types of file this plugin can determine information about
      */
-    public function getMatchingMimeTypes() {
+    public function getMatchingMimeTypes()
+    {
         return array(
             'video/quicktime',
             'video/mp4',
         );
-    }        
-    
+    }
+
     /**
      * @return array File extensions this plugin can determine information about.
      * The "." is not included, so "wmf" is OK, ".wmf" is not
      */
-    public function getMatchingFileExtensions() {
+    public function getMatchingFileExtensions()
+    {
         return array(
             'mp4',
             'm4a',
         );
     }
-    
+
     /**
      * Use \Zend_Media_Iso14496 to gather attributes for the file
      */
-    protected function setAttributes() {
+    protected function setAttributes()
+    {
         $this->addIso14496InformationToAttributes();
     }
 
     /**
      * Add the Info from \Zend_Media_Iso14496 to the attributes collection
      */
-    protected function addIso14496InformationToAttributes() {
+    protected function addIso14496InformationToAttributes()
+    {
         try {
             $isom = new \Zend_Media_Iso14496($this->fullPathToFileOnDisk);
             $this->attributes['duration'] = $isom->moov->mvhd->duration;
