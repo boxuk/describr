@@ -17,7 +17,8 @@ class PlainTextPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
     /**
      * @return array Types of file this plugin can determine information about
      */
-    public function getMatchingMimeTypes() {
+    public function getMatchingMimeTypes()
+    {
         return array(
             'text/plain',
             'text/css',
@@ -28,12 +29,13 @@ class PlainTextPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             'text/comma-separated-values',
         );
     }
-    
+
     /**
      * @return array File extensions this plugin can determine information about.
      * The "." is not included, so "wmf" is OK, ".wmf" is not
      */
-    public function getMatchingFileExtensions() {
+    public function getMatchingFileExtensions()
+    {
         return array(
             'txt',
             'xml',
@@ -48,13 +50,14 @@ class PlainTextPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             'js',
         );
     }
-    
+
     /**
      * @return array With keys 'tooLarge' if over maximum threshold size,
      * or keys 'lines', 'characters', 'words' if the file is within the
      * threshold size
      */
-    protected function setAttributes() {
+    protected function setAttributes()
+    {
         $maxSizeInBytes = $this->getConfigurationValue('maxSizeInBytes', 1048576);
         if (filesize($this->fullPathToFileOnDisk) > $maxSizeInBytes) {
             $this->attributes['errors'] = "This file is more than $maxSizeInBytes bytes so the system did not process it.";

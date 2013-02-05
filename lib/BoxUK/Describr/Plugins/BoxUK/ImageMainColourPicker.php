@@ -27,8 +27,8 @@ class ImageMainColourPicker
      * @param string $fullPathToFileOnDisk e.g. /tmp/foo.png
      * @return string e.g. "SeaGreen"
      */
-    public function calculateMainColourInImage($fullPathToFileOnDisk) {
-
+    public function calculateMainColourInImage($fullPathToFileOnDisk)
+    {
         $colourName = null;
 
         $fileExtension = \BoxUK\Describr\Helper\FileHelper::getFileExtension($fullPathToFileOnDisk);
@@ -70,18 +70,18 @@ class ImageMainColourPicker
      * @param int $b Blue, 0-255
      *
      * @return string Description of the colour
-     * 
+     *
      * @throws FileNotFoundException If cannot open RGB lookup file
      */
-    protected function rgbColourToString($r, $g, $b) {
-
+    protected function rgbColourToString($r, $g, $b)
+    {
         $rgbLookupFile = dirname(__FILE__) . '/../../../../resources/rgb.txt';
-        
+
         if (!file_exists($rgbLookupFile)) {
             // see if this is a PEAR install
             $rgbLookupFile = '@DATA_DIR@/describr/resources/rgb.txt';
         }
-        
+
         if (!file_exists($rgbLookupFile)) {
             throw new FileNotFoundException("Cannot open RGB to colour name lookup file $rgbLookupFile");
         }
@@ -99,14 +99,15 @@ class ImageMainColourPicker
         // matches
         while (!feof($fp)) {
             $this->processLine(fgets($fp), $distanceFromColor, $match, $r, $g, $b);
-            
+
         }
         fclose($fp);
 
         return ucfirst($match);
     }
-    
-    protected function processLine($line, &$distanceFromColor, &$match, $r, $g, $b) {
+
+    protected function processLine($line, &$distanceFromColor, &$match, $r, $g, $b)
+    {
         if ($line[0] === '!') {
             return;
         }
@@ -145,5 +146,5 @@ class ImageMainColourPicker
             $distanceFromColor = $newdist;
         }
     }
-        
+
 }
