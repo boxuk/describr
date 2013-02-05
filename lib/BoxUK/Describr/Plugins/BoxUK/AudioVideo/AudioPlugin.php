@@ -16,15 +16,16 @@ use BoxUK\Describr\Plugins\UnmetDependencyException;
  * @link      http://code.google.com/p/php-reader/ Library used by this plugin
  * @link      http://framework.zend.com/ Library used by this plugin
  */
-class AudioPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAudioVideoPlugin {
-
+class AudioPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAudioVideoPlugin
+{
     /**
      * Make sure that this plugin has everything that it needs - PHPReader
      * must be installed
      *
      * @throws UnmetDependencyException If a dependency is not met
      */
-    public function checkDependencies() {
+    public function checkDependencies()
+    {
         if(!class_exists('\Zend_Media_Id3v1')) {
             throw new UnmetDependencyException('Class Zend_Media_Id3v1 is not loaded - please ensure the php-reader library is on the include path if you wish to use this plugin');
         }
@@ -36,17 +37,19 @@ class AudioPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAudio
     /**
      * @return array Types of file this plugin can determine information about
      */
-    public function getMatchingMimeTypes() {
+    public function getMatchingMimeTypes()
+    {
         return array(
             'audio/mpeg',
         );
     }
-    
+
     /**
      * @return array File extensions this plugin can determine information about.
      * The "." is not included, so "wmf" is OK, ".wmf" is not
      */
-    public function getMatchingFileExtensions() {
+    public function getMatchingFileExtensions()
+    {
         return array(
             'mp3',
         );
@@ -59,7 +62,8 @@ class AudioPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAudio
      * Collects ID3 tag info, and as much info as it can determine about the
      * MPEG itself
      */
-    protected function setAttributes() {
+    protected function setAttributes()
+    {
         $this->addId3InformationToAttributes();
 
         $this->addMpegLengthInformationToAttributes();
@@ -71,7 +75,8 @@ class AudioPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAudio
      * Add the keys title, artist, album, comment, year, track and genre
      * to the attributes collection
      */
-    protected function addId3InformationToAttributes() {
+    protected function addId3InformationToAttributes()
+    {
         try {
             $id3 = new \Zend_Media_Id3v1($this->fullPathToFileOnDisk);
             $this->attributes['title'] = $id3->getTitle();
@@ -96,7 +101,8 @@ class AudioPlugin extends \BoxUK\Describr\Plugins\BoxUK\AudioVideo\AbstractAudio
     /**
      * This function is common to audio and video as mpeg can be video/audioi
      */
-    protected function addMpegAbsInformationToAttributes() {
+    protected function addMpegAbsInformationToAttributes()
+    {
         try {
             \set_error_handler(function() {});
             $ps = new \Zend_Media_Mpeg_Abs($this->fullPathToFileOnDisk);

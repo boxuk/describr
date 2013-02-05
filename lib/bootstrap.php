@@ -27,8 +27,8 @@ if (file_exists(dirname(__FILE__) . '/bootstrap.custom.php')) {
  * @param string $rootDir e.g. /opt/BoxUK/describr/lib
  * @param string $pathToPHPReaderLibrary e.g. /opt/vendor/php-reader/1.8.1/src
  */
-function autoload( $rootDir, $pathToPHPReaderLibrary ) {
-    
+function autoload( $rootDir, $pathToPHPReaderLibrary )
+{
     spl_autoload_register(function( $className ) use ( $rootDir, $pathToPHPReaderLibrary ) {
         $file = sprintf(
             '%s/%s.php',
@@ -37,8 +37,7 @@ function autoload( $rootDir, $pathToPHPReaderLibrary ) {
         );
         if ( file_exists($file) ) {
             require $file;
-        }
-        else  {
+        } else  {
             $file = sprintf(
                 '%s/%s.php',
                 $pathToPHPReaderLibrary,

@@ -14,7 +14,7 @@ namespace BoxUK\Describr;
  */
 class MediaFileAttributes
 {
-    
+
     /**
      * @var array key=>value array
      */
@@ -37,7 +37,8 @@ class MediaFileAttributes
      * @param string $pluginName The name of the plugin, e.g. \BoxUK\Describr\Plugins\BoxUK\GeneralPlugin
      * @param array  $results    The results of the plugin identified by $pluginName
      */
-    public function setPluginResults($pluginName, array $results) {
+    public function setPluginResults($pluginName, array $results)
+    {
         $shortName = $this->shortenPluginName($pluginName);
         $this->pluginResults[$shortName] = $results;
     }
@@ -49,7 +50,8 @@ class MediaFileAttributes
      * @param string $pluginName e.g. '\BoxUK\Describr\Plugins\BoxUK\GeneralPlugin'
      * @return string Shortened name, e.g. 'BoxUK\General'
      */
-    private function shortenPluginName($pluginName) {
+    private function shortenPluginName($pluginName)
+    {
         $shortName = \str_replace('\\BoxUK\\Describr\\Plugins\\', '', $pluginName);
         $shortName = \str_replace('Plugin', '', $shortName);
         $this->lookupFromFullToShortPluginName[$pluginName] = $shortName;
@@ -62,7 +64,8 @@ class MediaFileAttributes
      * 'BoxUK\General'
      * @return boolean Whether this collection contains the named plugin
      */
-    public function hasPlugin($pluginName) {
+    public function hasPlugin($pluginName)
+    {
         $pluginName = $this->getShortPluginNameIfFullNameIsUsed($pluginName);
         return \array_key_exists($pluginName, $this->pluginResults);
     }
@@ -71,10 +74,11 @@ class MediaFileAttributes
      * Converts long plugin name to its short version, e.g. 'BoxUK\General'
      *
      * @param String $pluginName e.g. e.g. '\BoxUK\Describr\Plugins\BoxUK\GeneralPlugin'
-     * 
+     *
      * @return  e.g. 'BoxUK\General'
      */
-    private function getShortPluginNameIfFullNameIsUsed($pluginName) {
+    private function getShortPluginNameIfFullNameIsUsed($pluginName)
+    {
         if (\array_key_exists($pluginName, $this->lookupFromFullToShortPluginName)) {
             $pluginName = $this->lookupFromFullToShortPluginName[$pluginName];
         }
@@ -86,7 +90,8 @@ class MediaFileAttributes
      * @return array|null The results if they could be found, or null if
      * no plugin was found of name $pluginName
      */
-    public function getPluginResults($pluginName) {
+    public function getPluginResults($pluginName)
+    {
         if (!$this->hasPlugin($pluginName)) {
             return null;
         }
@@ -98,15 +103,17 @@ class MediaFileAttributes
      * @return array All the plugins that have been used, e.g.
      * ['BoxUK\Image\Image', 'BoxUK\General', 'Custom\Foo']
      */
-    public function listPlugins() {
+    public function listPlugins()
+    {
         return \array_keys($this->pluginResults);
     }
-    
+
     /**
      * @return array All the plugins that have been used, e.g.
      * ['\BoxUK\Describr\Plugins\BoxUK\Image\ImagePlugin', '\BoxUK\Describr\Plugins\BoxUK\GeneralPlugin', '\BoxUK\Describr\Plugins\Custom\FooPlugin']
      */
-    public function listFullPluginNames() {
+    public function listFullPluginNames()
+    {
         return \array_keys($this->lookupFromFullToShortPluginName);
     }
 
@@ -141,7 +148,8 @@ class MediaFileAttributes
      * )
      * </code>
      */
-    public function toArray() {
+    public function toArray()
+    {
         return $this->pluginResults;
     }
 }

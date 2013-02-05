@@ -31,7 +31,8 @@ class FileHelper
      * @param string $fullPathToFileOnDisk The full path to the file
      * @return string The file's extension, e.g. flv
      */
-    public static function getFileExtension($fullPathToFileOnDisk) {
+    public static function getFileExtension($fullPathToFileOnDisk)
+    {
         return strtolower(substr(strrchr($fullPathToFileOnDisk, '.'), 1));
     }
 
@@ -39,10 +40,11 @@ class FileHelper
      * @param string $fullPathToFileOnDisk e.g. /tmp/foo.png
      * @return string|null A rough categorisation of the file, such as
      * "document", "image" or "audio".
-     * 
+     *
      * @see \BoxUK\Describr\Plugins\AbstractPlugin::getFileTypeFromExtension
      */
-    public static function getFileTypeFromExtension ($fullPathToFileOnDisk) {
+    public static function getFileTypeFromExtension ($fullPathToFileOnDisk)
+    {
         $fileExtension = self::getFileExtension($fullPathToFileOnDisk);
 
         foreach ( self::$aFileTypes as $type => $aExtensions ) {
@@ -58,7 +60,8 @@ class FileHelper
      * @param string $fullPathToFileOnDisk e.g. /tmp/foo.png
      * @return string MIME type of the file at $fullPathToFileOnDisk
      */
-    public static function getMimeType($fullPathToFileOnDisk) {
+    public static function getMimeType($fullPathToFileOnDisk)
+    {
         $mimeType = self::getMimeTypeFromMagicNumber($fullPathToFileOnDisk);
         if (!$mimeType || $mimeType === 'application/octet-stream') {
             $mimeType = self::getMimeTypeFromFileExtension($fullPathToFileOnDisk);
@@ -69,8 +72,8 @@ class FileHelper
     /**
      * @param string $fullPathToFileOnDisk e.g. /tmp/foo.png
      */
-    private static function getMimeTypeFromMagicNumber($fullPathToFileOnDisk) {
-
+    private static function getMimeTypeFromMagicNumber($fullPathToFileOnDisk)
+    {
         $finfo = finfo_open(FILEINFO_MIME);
 
         if (! $finfo) {
@@ -97,7 +100,8 @@ class FileHelper
      * @param string $file Full path to file on disk, e.g. /tmp/foo.png
      * @return string Mime type, e.g. text/plain
      */
-    private static function getMimeTypeFromFileExtension($file) {
+    private static function getMimeTypeFromFileExtension($file)
+    {
         static $types;
         if (!isset($types)) {
             $types = self::getSystemExtensionMimeTypes();
@@ -118,24 +122,25 @@ class FileHelper
      *
      * Taken from http://stackoverflow.com/questions/1147931/how-do-i-determine-the-extensions-associated-with-a-mime-type-in-php
      */
-    private static function getSystemExtensionMimeTypes() {
+    private static function getSystemExtensionMimeTypes()
+    {
         $fp = null;
         $out = array();
-        
+
         $mimeTypeFile = dirname(__FILE__) . '/../../../resources/mime.types';
-        
+
         if (!file_exists($mimeTypeFile)) {
             // see if this is a PEAR install
             $mimeTypeFile = '@DATA_DIR@/describr/resources/mime.types';
         }
-        
+
         if (!file_exists($mimeTypeFile)) {
             throw new FileNotFoundException("Cannot mime types file $mimeTypeFile");
         }
         if (!$fp = fopen($mimeTypeFile, 'r')) {
             return false;
         }
-        
+
         while(($line = fgets($fp)) !== false) {
             $line = trim(preg_replace('/#.*/', '', $line));
             if (!$line) {

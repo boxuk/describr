@@ -36,7 +36,7 @@ interface Plugin
      * @return array Types of file this plugin can determine information about
      */
     public function getMatchingMimeTypes();
-    
+
     /**
      * For each plugin, you must define an array of matching file extensions
      *
@@ -53,7 +53,7 @@ interface Plugin
      * $mimeType
      */
     public function supportsMimeType($mimeType);
-    
+
     /**
      * Look in the configuration for the value $valueName
      *

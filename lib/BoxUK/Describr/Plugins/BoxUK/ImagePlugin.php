@@ -6,7 +6,7 @@ use BoxUK\Describr\Plugins\UnmetDependencyException;
 
 /**
  * Plugin for automatically describing an Image file.
- * 
+ *
  * Requires GD to be installed.
  *
  * @author    Box UK <opensource@boxuk.com>
@@ -37,7 +37,8 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      *
      * @throws UnmetDependencyException If a dependency is not met
      */
-    public function checkDependencies() {
+    public function checkDependencies()
+    {
         if (!extension_loaded('gd') || !function_exists('gd_info')) {
             throw new UnmetDependencyException('GD is not installed');
         }
@@ -46,7 +47,8 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
     /**
      * @return array Types of file this plugin can determine information about
      */
-    public function getMatchingMimeTypes() {
+    public function getMatchingMimeTypes()
+    {
         return array(
             'image/jpeg',
             'image/png',
@@ -54,12 +56,13 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             'image/bmp',
         );
     }
-    
+
     /**
      * @return array File extensions this plugin can determine information about.
      * The "." is not included, so "wmf" is OK, ".wmf" is not
      */
-    public function getMatchingFileExtensions() {
+    public function getMatchingFileExtensions()
+    {
         return array(
             'jpg',
             'png',
@@ -72,7 +75,8 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      * @return array With keys "fileSize", "orientation", "dimensions",
      * "mainColour" - some keys may be absent
      */
-    protected function setAttributes() {
+    protected function setAttributes()
+    {
         $this->attributes = array_merge(
             $this->getImageDimensions(),
             $this->getAutoTagsByOrientationAndDimensions(),
@@ -105,7 +109,8 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      * @return array Single element array containing a colour name. Empty if the
      * colour name could not be determined.
      */
-    protected function getAutoTagsByFileColour() {
+    protected function getAutoTagsByFileColour()
+    {
         $aAutoTag = array();
 
         $mainColour = $this->calculateMainColourInImage();
@@ -121,7 +126,8 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      * image is by resizing the image to 1px in memory and picking the colour
      * from that pixel
      */
-    private function calculateMainColourInImage() {
+    private function calculateMainColourInImage()
+    {
         if(!$this->picker) {
             $this->picker = new ImageMainColourPicker();
         }
@@ -140,8 +146,8 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      *
      * @return array With keys 'orientation' and 'dimensions'
      */
-    private function getAutoTagsByOrientationAndDimensions() {
-
+    private function getAutoTagsByOrientationAndDimensions()
+    {
         // determine  dimensions
         $dimensions = $this->getImageDimensions();
         $heightInPx = $dimensions['height'];
@@ -167,8 +173,8 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      * @param int $heightInPx Height of image in pixels
      * @return string 'Square', 'Portrait' or 'Landscape'
      */
-    private function getAutoTagsByOrientation($widthInPx, $heightInPx) {
-
+    private function getAutoTagsByOrientation($widthInPx, $heightInPx)
+    {
         if ($heightInPx === $widthInPx) {
             return 'Square';
         } elseif ($heightInPx > $widthInPx) {
@@ -185,17 +191,18 @@ class ImagePlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
      * @param int $heightInPx Height of image in pixels
      * @return string e.g. 'Extra Large', 'Large', 'Medium', 'Small', 'Extra Small'
      */
-    private function getAutoTagsByDimensions($widthInPx, $heightInPx) {
+    private function getAutoTagsByDimensions($widthInPx, $heightInPx)
+    {
         $dim = $heightInPx * $widthInPx;
         $dimensions = 'Extra Large';
 
         if ($dim < $this->getConfigurationValue('extraSmallMaxDimensions', (320 * 240))) {
             $dimensions = 'Extra Small';
-        } else if ($dim < $this->getConfigurationValue('smallMaxDimensions', (640 * 480))) {
+        } elseif ($dim < $this->getConfigurationValue('smallMaxDimensions', (640 * 480))) {
             $dimensions = 'Small';
-        } else if ($dim < $this->getConfigurationValue('mediumMaxDimensions', (1024 * 768))) {
+        } elseif ($dim < $this->getConfigurationValue('mediumMaxDimensions', (1024 * 768))) {
             $dimensions = 'Medium';
-        } else if ($dim < $this->getConfigurationValue('largeMaxDimensions', (1280 * 1024))) {
+        } elseif ($dim < $this->getConfigurationValue('largeMaxDimensions', (1280 * 1024))) {
             $dimensions = 'Large';
         }
 

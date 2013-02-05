@@ -16,7 +16,6 @@ use BoxUK\Describr\Plugins\UnmetDependencyException;
  */
 class Facade
 {
-    
     /**
      * @var array All the plugins that are available under the plugins directory
      */
@@ -30,11 +29,12 @@ class Facade
      * those plugins support to see whether to include them in the plugin chain
      * for that particular request
      */
-    public function __construct() {
+    public function __construct()
+    {
         $pluginDir = $this->getPluginDir();
         $it = new \RecursiveDirectoryIterator($pluginDir);
         $ds = '[\\\\\/]';
-        
+
         foreach(new \RecursiveIteratorIterator($it) as $file => $fileInfo) {
             if (preg_match('/^(.*)' . $ds . '(\w+Plugin)\.php$/', $file, $aMatches)) {
                 list( $filePathToPlugin, $IGNORE, $model) = $aMatches;
@@ -52,7 +52,8 @@ class Facade
     /**
      * @return string Full path to where the plugins are
      */
-    private function getPluginDir() {
+    private function getPluginDir()
+    {
         return dirname(__FILE__) . '/Plugins';
     }
 
@@ -61,21 +62,11 @@ class Facade
      * to something the classloader will understand like \BoxUK\Describr\Plugins\BoxUK\ImagePlugin\ImagePlugin
      *
      * @param string $filePathToPlugin e.g. /opt/BoxUK/describr/lib/BoxUK/Describr/plugins/BoxUK/ImagePlugin/ImagePlugin.php
-     *        // Create an instance of the describr facade - this is the class that wraps all
-        // the functionality of describr and should be the only class you need most
-        // of the time
-        $describr = new \BoxUK\Describr\Facade();
-
-        // analyse a file
-        $file = $argv[1];
-
-        $response = $describr->describeFileAsArray($file);
-
-        // Show what describr was able to work out about this file
-        var_dump($response);
+     *
      * @return string  e.g. \BoxUK\Describr\Plugins\BoxUK\ImagePlugin\ImagePlugin
      */
-    private function convertFilepathToPackageAndClass( $filePathToPlugin) {
+    private function convertFilepathToPackageAndClass( $filePathToPlugin)
+    {
         $packageAndClass = \str_replace($this->getPluginDir(), '', $filePathToPlugin);
         $packageAndClass = \str_replace('.php', '', $packageAndClass);
         $packageAndClass = '\BoxUK\Describr\Plugins' . \str_replace('/', '\\', $packageAndClass);
@@ -86,7 +77,8 @@ class Facade
      * @return array The class names of all available plugins in a flat array
      * of strings like '\BoxUK\Describr\Plugins\BoxUK\GeneralPlugin'
      */
-    public function listAvailablePlugins() {
+    public function listAvailablePlugins()
+    {
         return $this->availablePlugins;
     }
 
@@ -101,11 +93,12 @@ class Facade
      * @throws \BoxUK\Describr\FileNotFoundException If the file at $fullPathToFileOnDisk is not
      * readable
      */
-    public function describeFile($fullPathToFileOnDisk) {
+    public function describeFile($fullPathToFileOnDisk)
+    {
         if (!is_file($fullPathToFileOnDisk)) {
             throw new FileNotFoundException("File '$fullPathToFileOnDisk' not found or not accessible");
         }
-        
+
         // ascertain MIME type so we can check what plugins to use
         $mimeType = \BoxUK\Describr\Helper\FileHelper::getMimeType($fullPathToFileOnDisk);
         $extension = \BoxUK\Describr\Helper\FileHelper::getFileExtension($fullPathToFileOnDisk);
@@ -116,7 +109,7 @@ class Facade
             /* @var $plugin plugins\Plugin */
             $plugin = new $pluginName();
             if ( $plugin->supportsFile($mimeType, $extension)) {
-                
+
                 $plugin->setFile($fullPathToFileOnDisk);
                 $mediaFileAttributes->setPluginResults($pluginName, $plugin->getAttributes());
             }
@@ -136,7 +129,8 @@ class Facade
      * @throws FileNotFoundException If the file at $fullPathToFileOnDisk is not
      * readable
      */
-    public function describeFileAsArray($fullPathToFileOnDisk) {
+    public function describeFileAsArray($fullPathToFileOnDisk)
+    {
         return $this->describeFile($fullPathToFileOnDisk)->toArray();
     }
 }
