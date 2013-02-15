@@ -16,8 +16,10 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "ext-fileinfo": "*",
-        "zendframework/zendframework1": "1.12.*"
+        "ext-fileinfo": "*"
+    },
+    "suggest": {
+        "zendframework/zendframework1": "Allows use of advanced Audio and Video plugins"
     },
     "extra": {
         "branch-alias": {
