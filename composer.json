@@ -19,11 +19,12 @@
         "ext-fileinfo": "*"
     },
     "suggest": {
+        "e-butik/php-reader": "Required for audio/video analysis",
         "zendframework/zendframework1": "Allows use of advanced Audio and Video plugins"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.3.x-dev"
         }
     },
     "autoload": {
