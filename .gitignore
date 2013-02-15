@@ -12,3 +12,4 @@ catalog.xml
 .idea/*
 lib/BoxUK/Describr/Plugins/Custom/XmlPlugin.php
 peartest.sh
+vendor
