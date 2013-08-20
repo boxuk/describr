@@ -37,7 +37,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
     }
 
     /**
-     * @return array with keys "extension", "type", "mimeType"
+     * @return array with keys "extension", "type", "mimeType", "fileSizeInBytes", "md5Checksum" and "sha1Checksum"
      */
     public function setAttributes()
     {
@@ -45,6 +45,8 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $this->attributes['type'] = $this->getFileType();
         $this->attributes['mimeType'] = $this->mimeTypeOfCurrentFile;
         $this->attributes['fileSizeInBytes'] = $this->getFileSizeInBytes();
+        $this->attributes['md5Checksum'] = $this->getFileMd5Checksum();
+        $this->attributes['sha1Checksum'] = $this->getFileSha1Checksum();
 
         $this->addAutoTagsByFileSize();
     }
@@ -85,10 +87,10 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             return;
         }
 
-        $sizeInKb = filesize ($this->fullPathToFileOnDisk) / 1024;
+        $sizeInKb = filesize($this->fullPathToFileOnDisk) / 1024;
 
         $function = 'getSizeOf' . ucfirst($this->getFileType());
-        if(!function_exists($function)) {
+        if (!function_exists($function)) {
             $function = 'getSizeOf';
         }
         $fileSizeDescription = $this->$function($sizeInKb);
@@ -108,7 +110,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 32) {
             $fileSizeDescription = 'Extra Small';
-        }else if ($sizeInKb < 128) {
+        } elseif ($sizeInKb < 128) {
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 512) {
             $fileSizeDescription = 'Medium';
@@ -128,7 +130,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 16) {
             $fileSizeDescription = 'Extra Small';
-        }else if ($sizeInKb < 32) {
+        } elseif ($sizeInKb < 32) {
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 64) {
             $fileSizeDescription = 'Medium';
@@ -158,7 +160,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 32) {
             $fileSizeDescription = 'Extra Small';
-        }else if ($sizeInKb < 256) {
+        } elseif ($sizeInKb < 256) {
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 1024) {
             $fileSizeDescription = 'Medium';
@@ -178,7 +180,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 128) {
             $fileSizeDescription = 'Extra Small';
-        }else if ($sizeInKb < 512) {
+        } elseif ($sizeInKb < 512) {
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 2048) {
             $fileSizeDescription = 'Medium';
@@ -186,5 +188,23 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             $fileSizeDescription = 'Large';
         }
         return $fileSizeDescription;
+    }
+
+    /**
+     * Get file md5 hash.
+     * @return string
+     */
+    protected function getFileMd5Checksum()
+    {
+        return md5_file($this->fullPathToFileOnDisk);
+    }
+
+    /**
+     * Get file sha1 hash.
+     * @return string
+     */
+    protected function getFileSha1Checksum()
+    {
+        return sha1_file($this->fullPathToFileOnDisk);
     }
 }
