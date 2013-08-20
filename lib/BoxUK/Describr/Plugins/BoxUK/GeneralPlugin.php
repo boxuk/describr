@@ -87,10 +87,10 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             return;
         }
 
-        $sizeInKb = filesize ($this->fullPathToFileOnDisk) / 1024;
+        $sizeInKb = filesize($this->fullPathToFileOnDisk) / 1024;
 
         $function = 'getSizeOf' . ucfirst($this->getFileType());
-        if(!function_exists($function)) {
+        if (!function_exists($function)) {
             $function = 'getSizeOf';
         }
         $fileSizeDescription = $this->$function($sizeInKb);
@@ -110,7 +110,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 32) {
             $fileSizeDescription = 'Extra Small';
-        }else if ($sizeInKb < 128) {
+        } elseif ($sizeInKb < 128) {
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 512) {
             $fileSizeDescription = 'Medium';
@@ -130,7 +130,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 16) {
             $fileSizeDescription = 'Extra Small';
-        }else if ($sizeInKb < 32) {
+        } elseif ($sizeInKb < 32) {
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 64) {
             $fileSizeDescription = 'Medium';
@@ -160,7 +160,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 32) {
             $fileSizeDescription = 'Extra Small';
-        }else if ($sizeInKb < 256) {
+        } elseif ($sizeInKb < 256) {
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 1024) {
             $fileSizeDescription = 'Medium';
@@ -180,7 +180,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $fileSizeDescription = 'Extra Large';
         if ($sizeInKb < 128) {
             $fileSizeDescription = 'Extra Small';
-        }else if ($sizeInKb < 512) {
+        } elseif ($sizeInKb < 512) {
             $fileSizeDescription = 'Small';
         } elseif ($sizeInKb < 2048) {
             $fileSizeDescription = 'Medium';
