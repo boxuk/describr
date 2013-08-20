@@ -37,7 +37,7 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
     }
 
     /**
-     * @return array with keys "extension", "type", "mimeType"
+     * @return array with keys "extension", "type", "mimeType", "fileSizeInBytes", "md5Checksum" and "sha1Checksum"
      */
     public function setAttributes()
     {
@@ -45,6 +45,8 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
         $this->attributes['type'] = $this->getFileType();
         $this->attributes['mimeType'] = $this->mimeTypeOfCurrentFile;
         $this->attributes['fileSizeInBytes'] = $this->getFileSizeInBytes();
+        $this->attributes['md5Checksum'] = $this->getFileMd5Checksum();
+        $this->attributes['sha1Checksum'] = $this->getFileSha1Checksum();
 
         $this->addAutoTagsByFileSize();
     }
@@ -186,5 +188,23 @@ class GeneralPlugin extends \BoxUK\Describr\Plugins\AbstractPlugin
             $fileSizeDescription = 'Large';
         }
         return $fileSizeDescription;
+    }
+
+    /**
+     * Get file md5 hash.
+     * @return string
+     */
+    protected function getFileMd5Checksum()
+    {
+        return md5_file($this->fullPathToFileOnDisk);
+    }
+
+    /**
+     * Get file sha1 hash.
+     * @return string
+     */
+    protected function getFileSha1Checksum()
+    {
+        return sha1_file($this->fullPathToFileOnDisk);
     }
 }
